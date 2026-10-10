@@ -4,6 +4,7 @@ import Header from './components/Header'
 import Footer from './components/Footer'
 import Home from './pages/Home'
 import CategoryPage from './pages/CategoryPage'
+import DaybookPage from './pages/DaybookPage'
 
 function ScrollToSection(){
   const { pathname, hash } = useLocation()
@@ -25,6 +26,7 @@ export default function App(){
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/work/:slug" element={<CategoryPage />} />
+          <Route path="/daybook" element={<DaybookPage />} />
           <Route path="*" element={<CategoryPage />} />
         </Routes>
       </main>

@@ -1,6 +1,10 @@
 import React, { FormEvent, useState } from 'react'
 import { ArrowDown, ArrowUpRight } from 'lucide-react'
+import { Link } from 'react-router-dom'
 import { portfolioImages, workCategories, type PortfolioImage } from '../data/portfolio'
+import SketchbookFlipbook from '../components/SketchbookFlipbook'
+import DaybookPhoto from '../components/DaybookPhoto'
+import ScrollSunlight from '../components/ScrollSunlight'
 
 function ImageSlot({
   image,
@@ -25,10 +29,10 @@ function ImageSlot({
   )
 }
 
-function SectionHeading({ eyebrow, title, note }: { eyebrow: string; title: string; note?: string }){
+function SectionHeading({ eyebrow, title, note }: { eyebrow?: string; title: string; note?: string }){
   return (
     <div className="section-heading">
-      <span className="eyebrow">{eyebrow}</span>
+      {eyebrow && <span className="eyebrow">{eyebrow}</span>}
       <h2>{title}</h2>
       {note && <p>{note}</p>}
     </div>
@@ -55,8 +59,8 @@ export default function Home(){
   return (
     <div className="notebook-content" id="top">
       <section className="hero-section page-section" id="hero" aria-labelledby="hero-title">
+        <ScrollSunlight />
         <div className="hero-copy">
-          <span className="eyebrow">A personal collection of curiosities</span>
           <h1 id="hero-title">A world of<br /><em>my own making.</em></h1>
           <p>Art, objects, experiments &amp; everything in between.</p>
           <a className="text-link hero-link" href="#about">Explore the collection <ArrowDown size={16} aria-hidden="true" /></a>
@@ -70,12 +74,9 @@ export default function Home(){
       <section className="about-section page-section light-section" id="about">
         <div className="about-layout">
           <div className="about-copy">
-            <SectionHeading eyebrow="First page" title="About Me" />
+            <SectionHeading eyebrow="First page" title="A mind of my own." />
             <div className="about-body">
-              <p>Hi, I'm the person behind all these little creations.</p>
-              <p>I like making things, drawing, painting, experimenting with different mediums, and occasionally getting carried away with a completely random idea.</p>
-              <p>I don't really stick to one thing, and that's probably my favourite part. There's always something new I want to try, something I want to make, or some idea I need to get out of my head and onto paper.</p>
-              <p>This is a collection of all of it, and probably a few things I haven't thought of making yet.</p>
+              <p>I'm Vaishnavi, an artist drawn to making things, exploring ideas, and finding inspiration in the little things around me. I work across drawing, painting, and illustration, always curious about what I can create next.</p>
             </div>
           </div>
           <figure className="about-photograph">
@@ -86,8 +87,8 @@ export default function Home(){
       </section>
 
       <section className="work-section page-section" id="work">
-        <SectionHeading eyebrow="A gathered collection" title="Work" note="Choose a colour to wander into a collection." />
-        <div className="artist-palette" aria-label="Explore artwork by category">
+        <SectionHeading eyebrow="A gathered collection" title="Work" />
+        <div className="artist-palette" aria-label="Explore artwork by colour">
           {workCategories.map((category, index) => (
             <a
               className={`palette-item palette-item-${index + 1}`}
@@ -96,12 +97,9 @@ export default function Home(){
               rel="noreferrer"
               key={category.id}
               style={{ '--pigment': category.pigment } as React.CSSProperties}
-              aria-label={`Open ${category.name} in a new tab`}
+              aria-label={`Open the ${category.color} collection in a new tab`}
             >
-              <span className="palette-dab">
-                <ImageSlot image={category.thumbnail} className="palette-thumbnail" />
-              </span>
-              <span className="palette-label">{category.name}</span>
+              <span className="palette-dab" aria-hidden="true" />
             </a>
           ))}
         </div>
@@ -109,28 +107,23 @@ export default function Home(){
       </section>
 
       <section className="sketchbook-section page-section light-section" id="sketchbook">
-        <div className="sketchbook-layout">
-          <div className="sketchbook-copy">
-            <SectionHeading
-              eyebrow="Loose pages &amp; works in progress"
-              title="Sketchbook"
-              note="Tests, swatches, halfway-there ideas, and the occasional happy accident."
-            />
-            <div className="materials-strip">
-              <span className="eyebrow">Often on the table</span>
-              <p>Charcoal &amp; graphite <i /> watercolour &amp; brushes <i /> ink pens &amp; liners <i /> acrylic paint <i /> paper &amp; pencils</p>
-            </div>
-          </div>
-          <figure className="sketchbook-photograph">
-            <ImageSlot image={portfolioImages.sketchbookFeature} className="photo-edge photo-edge-three" />
-          </figure>
-        </div>
-        <span className="folio-mark">Page 04 — Sketchbook</span>
+        <SectionHeading title="Sketchbook" />
+        <SketchbookFlipbook />
       </section>
 
+      <section className="daybook-teaser page-section light-section" aria-labelledby="daybook-teaser-title">
+        <h2 id="daybook-teaser-title">Daybook</h2>
+        <Link className="daybook-teaser-link" to="/daybook" aria-label="Open Daybook">
+          <DaybookPhoto
+            src={portfolioImages.daybookPreview.src}
+            alt={portfolioImages.daybookPreview.alt}
+            className="daybook-teaser-photo"
+          />
+        </Link>
+      </section>
       <section className="custom-section page-section light-section" id="custom-creations">
         <div className="custom-intro">
-          <SectionHeading eyebrow="Something just for you" title="Custom Creations" note="Have an idea in mind? Let's make something." />
+          <SectionHeading title="Custom Creations" note="Have an idea in mind? Let's make something." />
           <p>I work across drawing, painting, illustration, and other handmade creations. Tell me what you're imagining, even if it doesn't fit a category.</p>
           <a className="text-link" href="mailto:vonthegoo@gmail.com">Prefer a direct note? Email me <ArrowUpRight size={15} /></a>
         </div>

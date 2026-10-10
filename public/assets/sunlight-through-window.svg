@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800" preserveAspectRatio="none">
+  <defs>
+    <filter id="soft-window-light" x="-12%" y="-16%" width="124%" height="132%">
+      <feTurbulence type="fractalNoise" baseFrequency=".018 .026" numOctaves="2" seed="19" result="surface"/>
+      <feDisplacementMap in="SourceGraphic" in2="surface" scale="32" xChannelSelector="R" yChannelSelector="G" result="soft-edge"/>
+      <feGaussianBlur in="soft-edge" stdDeviation="18"/>
+    </filter>
+  </defs>
+  <g filter="url(#soft-window-light)">
+    <path fill="#f5dca2" d="M-170 64 430-54l447 846-618 142z" opacity=".28"/>
+    <path fill="#f6e4b5" d="m204-84 360-71 415 872-384 112z" opacity=".18"/>
+    <path fill="#fff0cf" d="m-42 292 812-160 131 237-829 178z" opacity=".13"/>
+    <path fill="#46351f" d="m281 91 42-8 417 867-43 8z" opacity=".19"/>
+    <path fill="#46351f" d="m-35 381 930-184 7 22-930 184z" opacity=".12"/>
+  </g>
+</svg>
