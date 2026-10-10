@@ -426,8 +426,20 @@ button:focus-visible, a:focus-visible, input:focus-visible, textarea:focus-visib
 }
 .about-section:has(.about-collage:empty) .about-copy { width: min(100%, 1360px); }
 .about-copy .section-heading,
+.about-copy .about-section-title,
 .about-copy > .about-lede { grid-column: 1; }
 .about-copy .about-body { grid-column: 2; grid-row: 1 / span 2; max-width: 54ch; }
+.about-section-title h2 {
+  margin: 0;
+  font: 400 clamp(40px, 5vw, 68px)/1.05 "Playfair Display", Georgia, serif;
+  letter-spacing: -.04em;
+}
+.about-section-title h3 {
+  margin: 8px 0 0;
+  color: #f7dfad !important;
+  font: 400 clamp(34px, 3.8vw, 52px)/1.08 var(--font-accent);
+  letter-spacing: .005em;
+}
 .about-copy > .about-lede { align-self: start; margin-top: 24px; font-size: clamp(40px, 4.3vw, 62px); line-height: 1.08; }
 .about-copy .about-body p { color: #6d675f; font-size: clamp(14px, 1vw, 16px); line-height: 1.95; }
 .about-copy .about-body p + p { margin-top: 22px; }

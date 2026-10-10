@@ -74,7 +74,10 @@ export default function Home(){
       <section className="about-section page-section light-section" id="about">
         <div className="about-layout">
           <div className="about-copy">
-            <SectionHeading eyebrow="ABOUT ME" title="A mind of my own." />
+            <div className="about-section-title">
+              <h2>ABOUT ME</h2>
+              <h3>A mind of my own.</h3>
+            </div>
             <div className="about-body">
               <p>I'm Vaishnavi, an artist drawn to making things, exploring ideas, and finding inspiration in the little things around me. I work across drawing, painting, and illustration, always curious about what I can create next.</p>
             </div>
