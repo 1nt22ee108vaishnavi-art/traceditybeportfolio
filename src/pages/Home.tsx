@@ -2,7 +2,6 @@ import React, { FormEvent, useState } from 'react'
 import { ArrowDown, ArrowUpRight } from 'lucide-react'
 import { Link } from 'react-router-dom'
 import { portfolioImages, workCategories, type PortfolioImage } from '../data/portfolio'
-import SketchbookFlipbook from '../components/SketchbookFlipbook'
 import DaybookPhoto from '../components/DaybookPhoto'
 import ScrollSunlight from '../components/ScrollSunlight'
 
@@ -21,6 +20,10 @@ function ImageSlot({
         <img
           src={image.src}
           alt={image.alt}
+          data-preview
+          tabIndex={0}
+          role="button"
+          aria-label={`Preview ${image.alt}`}
           style={{ objectPosition: image.position || 'center' }}
           onError={() => setFailed(true)}
         />
@@ -107,10 +110,6 @@ export default function Home(){
         <span className="folio-mark">Page 03 — Work</span>
       </section>
 
-      <section className="sketchbook-section page-section light-section" id="sketchbook">
-        <SectionHeading title="Sketchbook" />
-        <SketchbookFlipbook />
-      </section>
 
       <section className="daybook-teaser page-section light-section" aria-labelledby="daybook-teaser-title">
         <h2 id="daybook-teaser-title">Daybook</h2>

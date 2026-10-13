@@ -8,7 +8,7 @@ export default function DaybookPage(){
       <div className="daybook-gallery">
         {daybookEntries.map((entry, index) => (
           <figure className={`daybook-gallery-item daybook-gallery-item-${index + 1}`} key={entry.src}>
-            <DaybookPhoto src={entry.src} alt={entry.alt} />
+            <DaybookPhoto src={entry.src} alt={entry.alt} previewable />
           </figure>
         ))}
       </div>

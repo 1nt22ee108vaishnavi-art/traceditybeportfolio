@@ -2,6 +2,7 @@ import { useLayoutEffect } from 'react'
 import { Route, Routes, useLocation } from 'react-router-dom'
 import Header from './components/Header'
 import Footer from './components/Footer'
+import ArtworkPreview from './components/ArtworkPreview'
 import Home from './pages/Home'
 import CategoryPage from './pages/CategoryPage'
 import DaybookPage from './pages/DaybookPage'
@@ -34,6 +35,7 @@ export default function App(){
         </Routes>
       </main>
       <Footer />
+      <ArtworkPreview />
     </div>
   )
 }

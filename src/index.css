@@ -651,14 +651,23 @@ button:focus-visible, a:focus-visible, input:focus-visible, textarea:focus-visib
 .palette-thumbnail { width: 100%; height: 100%; background: transparent; box-shadow: none; }
 .palette-thumbnail.is-missing { background: transparent; background-image: none; }
 .palette-thumbnail img { mix-blend-mode: multiply; opacity: .92; }
-.palette-item-1 .palette-dab { border-radius: 61% 39% 54% 46% / 46% 57% 43% 54%; transform: rotate(-9deg); }
-.palette-item-2 .palette-dab { border-radius: 42% 58% 46% 54% / 58% 43% 57% 42%; transform: rotate(7deg); }
-.palette-item-3 .palette-dab { border-radius: 54% 46% 62% 38% / 42% 61% 39% 58%; transform: rotate(-4deg); }
-.palette-item-4 .palette-dab { border-radius: 39% 61% 48% 52% / 56% 42% 58% 44%; transform: rotate(10deg); }
-.palette-item-5 .palette-dab { border-radius: 57% 43% 39% 61% / 48% 57% 43% 52%; transform: rotate(-7deg); }
-.palette-item-6 .palette-dab { border-radius: 45% 55% 59% 41% / 61% 39% 55% 45%; transform: rotate(5deg); }
+/* Stippled eight-petal flowers: the pigment shows through a dotted mask (public/assets/palette-flower.png). */
+.palette-dab {
+  width: clamp(96px, 13vw, 180px);
+  border-radius: 0;
+  box-shadow: none;
+  transform: rotate(0deg);
+  -webkit-mask: url("/assets/palette-flower.png") center / contain no-repeat;
+  mask: url("/assets/palette-flower.png") center / contain no-repeat;
+  transition: transform .7s cubic-bezier(.34,1.4,.5,1), filter .28s ease;
+}
+.palette-dab::before { display: none; }
 .palette-item:hover .palette-dab,
-.palette-item:focus-visible .palette-dab { transform: translateY(-5px) rotate(0deg) scale(1.04); filter: saturate(1.12); }
+.palette-item:focus-visible .palette-dab { transform: rotate(90deg) scale(1.08); filter: saturate(1.15) brightness(1.08); }
+@media (prefers-reduced-motion: reduce) {
+  .palette-item:hover .palette-dab,
+  .palette-item:focus-visible .palette-dab { transform: scale(1.06); }
+}
 .palette-item:focus-visible { outline-offset: 2px; }
 
 .category-section {
@@ -694,7 +703,7 @@ button:focus-visible, a:focus-visible, input:focus-visible, textarea:focus-visib
   .about-photograph,
   .sketchbook-photograph { height: clamp(300px, 43vw, 420px); }
   .artist-palette { grid-template-columns: repeat(3, minmax(0, 1fr)); row-gap: 34px; }
-  .palette-dab { width: clamp(100px, 14vw, 136px); }
+  .palette-dab { width: clamp(110px, 17vw, 170px); }
   .category-section { grid-template-columns: minmax(0, .8fr) minmax(0, 1.2fr); gap: 34px; }
 }
 
@@ -710,7 +719,7 @@ button:focus-visible, a:focus-visible, input:focus-visible, textarea:focus-visib
   .sketchbook-photograph { grid-column: 1; grid-row: 2; height: clamp(300px, 88vw, 440px); }
   .about-body p { font-size: 15px; line-height: 1.8; }
   .artist-palette { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px 12px; margin-top: 40px; }
-  .palette-dab { width: clamp(90px, 27vw, 126px); }
+  .palette-dab { width: clamp(110px, 36vw, 150px); }
   .category-section { grid-template-columns: minmax(0, 1fr); gap: 36px; }
   .category-artworks { grid-template-columns: minmax(0, 1fr); gap: 22px; }
   .category-artwork,
@@ -979,4 +988,88 @@ body { background: #352419; }
 
 @media (prefers-reduced-motion: reduce) {
   .scroll-sunlight { display: none; }
+}
+
+/* ---------- Artwork image sizing ---------- */
+/* Every artwork shows whole: no cropping, clipping or distortion. Collection frames take the
+   artwork's own proportions, so there is no empty space inside them. */
+.category-artwork,
+.category-artwork-2 { height: auto; min-height: 0; aspect-ratio: auto; }
+.category-artwork img { position: static; display: block; width: 100%; height: auto; object-fit: contain; }
+.hero-photograph img,
+.about-photograph img,
+.daybook-photo img { object-fit: contain; }
+
+/* No boxes around artwork: no paper cards, tinted mats, shadows or torn-edge clipping, so each
+   image sits directly on the page background. A missing image still shows its placeholder. */
+.paper-image,
+.daybook-photo { background: transparent; box-shadow: none; }
+.paper-image.is-missing,
+.daybook-photo.is-missing { background-color: #e9e1d3; }
+.daybook-gallery .daybook-photo:not(.is-missing) { background-color: transparent; }
+.photo-edge,
+.photo-edge-one,
+.photo-edge-two,
+.photo-edge-three { clip-path: none; filter: none; }
+.daybook-gallery-item { filter: none; }
+
+/* Artwork preview: a compact panel anchored over the selected image (not full screen). */
+img[data-preview] { cursor: zoom-in; }
+img[data-preview]:focus-visible { outline: 2px solid var(--magenta); outline-offset: 3px; }
+.artwork-preview {
+  position: absolute;
+  z-index: 60;
+  display: grid;
+  grid-template-rows: auto minmax(0, 1fr);
+  overflow: hidden;
+  color: #f2e5d0;
+  background: #1c1611;
+  border: 1px solid rgba(242, 229, 208, .18);
+  border-radius: 6px;
+  box-shadow: 0 18px 48px rgba(0, 0, 0, .45);
+}
+.artwork-preview-toolbar {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 6px;
+  border-bottom: 1px solid rgba(242, 229, 208, .14);
+}
+.artwork-preview-toolbar button {
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  padding: 0;
+  color: inherit;
+  background: transparent;
+  border: 0;
+  border-radius: 4px;
+  cursor: pointer;
+}
+.artwork-preview-toolbar button:hover:not(:disabled) { background: rgba(242, 229, 208, .12); }
+.artwork-preview-toolbar button:focus-visible { outline: 2px solid #f2e5d0; outline-offset: -2px; }
+.artwork-preview-toolbar button:disabled { opacity: .35; cursor: default; }
+.artwork-preview-zoom { min-width: 48px; text-align: center; font: 500 13px/1 var(--font-body); font-variant-numeric: tabular-nums; }
+.artwork-preview-close { margin-left: auto; }
+.artwork-preview-viewport {
+  position: relative;
+  overflow: hidden;
+  touch-action: none;
+  cursor: zoom-in;
+}
+.artwork-preview-viewport.is-zoomed { cursor: grab; }
+.artwork-preview-viewport.is-zoomed:active { cursor: grabbing; }
+.artwork-preview-viewport img {
+  position: absolute;
+  inset: 8px;
+  width: calc(100% - 16px);
+  height: calc(100% - 16px);
+  object-fit: contain;
+  user-select: none;
+  transform-origin: center;
+  transition: transform .12s ease-out;
+}
+@media (prefers-reduced-motion: reduce) {
+  .artwork-preview-viewport img { transition: none; }
 }

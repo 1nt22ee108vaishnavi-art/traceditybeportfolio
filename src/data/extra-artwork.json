@@ -1,0 +1,58 @@
+{
+  "note": "Artwork found in OneDrive\\Desktop\\portfolio but missing from artwork-mapping.json, sorted by medium on 14 Oct 2026 for the owner to review. Each list is added after that collection's mapped artworks. Left out on purpose: 7.20.25 PM.jpeg (another photo of 7.20.25 PM (1)), 7.20.27 PM (3).jpeg (another photo of the cats in 7.29.35 PM), byte-identical copies of mapped files, painted-eyes.jpeg and the ChatGPT image. 14 Oct: the owner added the flower painting (2026-10-13 7.50.03 PM) to Acrylic, asked for a separate MS Paint section, and set the Work order: Acrylic, Charcoal, MS Paint, then the rest. 14 Oct: the owner removed 7.20.25 PM (6), 7.20.25 PM (7) and 8.49.20 PM (20) from the ink and watercolour additions. 14 Oct: the owner merged Plum (other-creations) into Ochre (acrylic); /work/other-creations now opens Acrylic. 14 Oct: the owner removed the two added Daybook photos (9.06.39 PM, 9.07.05 PM (1)).",
+  "order": [
+    "acrylic",
+    "charcoal",
+    "ms-paint",
+    "watercolor",
+    "ink-and-watercolor",
+    "sketches-and-doodles"
+  ],
+  "collections": [
+    {
+      "id": "ms-paint",
+      "name": "Teal",
+      "slug": "ms-paint",
+      "pigment": "#4f7f7c",
+      "takesMappedArtworkFrom": "acrylic",
+      "why": "Every artwork the mapping places in Acrylic (Ochre) is an MS Paint drawing, so they move here."
+    }
+  ],
+  "mergedInto": {
+    "other-creations": "acrylic"
+  },
+  "work": {
+    "charcoal": [
+      "WhatsApp Image 2026-10-10 at 7.20.23 PM (9).jpeg",
+      "WhatsApp Image 2026-10-10 at 7.20.24 PM (1).jpeg",
+      "WhatsApp Image 2026-10-10 at 7.20.24 PM (2).jpeg",
+      "WhatsApp Image 2026-10-10 at 7.20.24 PM (3).jpeg",
+      "WhatsApp Image 2026-10-10 at 7.20.24 PM (4).jpeg",
+      "WhatsApp Image 2026-10-10 at 7.20.24 PM (5).jpeg",
+      "WhatsApp Image 2026-10-10 at 7.20.25 PM (1).jpeg",
+      "WhatsApp Image 2026-10-10 at 7.20.25 PM (3).jpeg",
+      "WhatsApp Image 2026-10-10 at 7.20.25 PM (4).jpeg",
+      "WhatsApp Image 2026-10-10 at 7.20.25 PM (5).jpeg",
+      "WhatsApp Image 2026-10-10 at 7.20.26 PM.jpeg",
+      "WhatsApp Image 2026-10-10 at 7.20.27 PM.jpeg",
+      "WhatsApp Image 2026-10-10 at 8.49.20 PM (17).jpeg",
+      "WhatsApp Image 2026-10-10 at 8.49.20 PM (4).jpeg"
+    ],
+    "watercolor": [
+      "WhatsApp Image 2026-10-10 at 7.20.25 PM (2).jpeg",
+      "WhatsApp Image 2026-10-10 at 7.20.26 PM (10).jpeg",
+      "WhatsApp Image 2026-10-10 at 7.20.26 PM (3).jpeg",
+      "WhatsApp Image 2026-10-10 at 7.32.42 PM.jpeg"
+    ],
+    "sketches-and-doodles": [
+      "WhatsApp Image 2026-10-10 at 7.20.25 PM (9).jpeg"
+    ],
+    "acrylic": [
+      "WhatsApp Image 2026-10-13 at 7.50.03 PM.jpeg"
+    ],
+    "ms-paint": [
+      "WhatsApp Image 2026-10-10 at 7.24.18 PM (1).jpeg"
+    ]
+  },
+  "daybook": []
+}

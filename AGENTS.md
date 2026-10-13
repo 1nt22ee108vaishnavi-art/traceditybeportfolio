@@ -10,13 +10,21 @@ single-page site, styled with Tailwind and plain CSS, deployed on Vercel.
   form in `src/pages/Home.tsx` only opens a prepared `mailto:` email.
 - **Routes** (`src/App.tsx`): `/`, `/work/:slug`, `/daybook`. `vercel.json` rewrites the last two to
   `/` so deep links work. A new top-level route also needs a rewrite there.
-- **All content data** lives in `src/data/portfolio.ts`: portraits, Work collections (id, name,
-  slug, pigment colour, artworks), Sketchbook pages, Daybook entries.
+- **Artwork data:** `src/data/portfolio.ts` builds every image list from two files:
+  `src/data/artwork-mapping.json` (an unedited organiser export, v2) and
+  `src/data/extra-artwork.json` (artwork in the folder that the mapping misses, sorted by medium;
+  the owner's added MS Paint collection, which takes the mapping's Acrylic pieces; and the Work
+  order: Acrylic, Charcoal, MS Paint, then the rest; Plum (`other-creations`) is merged into Acrylic
+  via `mergedInto`, and its old URL opens Acrylic). No display limits. The Sketchbook section was
+  removed from the homepage at the owner's request; its data is unused.
 - **Images** are served from `public/assets/`. Artwork copies live in
-  `public/assets/portfolio/organiser/` with their original file names, referenced through
-  `artworkPath()` / `workArtwork()` in `portfolio.ts`.
+  `public/assets/portfolio/organiser/` with their original file names.
+- **Image display:** collection artwork shows whole at its own proportions, with no paper cards,
+  shadows or torn-edge clipping; `src/components/ArtworkPreview.tsx` opens a zoomable preview for
+  any `<img data-preview>`.
 - **Originals** are in `OneDrive\Desktop\portfolio` (`C:\Users\vaish\OneDrive\Desktop\portfolio`).
-  The mapping exported by the organiser is `OneDrive\Desktop\artwork-mapping.json`.
+  `OneDrive\Desktop\artwork-mapping.json` is an older v1 export; the current mapping is in `src/data/`.
+- **Backup:** the eye-homepage experiments are kept in the git stash "Eye redesign and later work".
 - **Artwork organiser** (`tools/artwork-organiser/`) is a standalone local browser tool that drafts
   image assignments and exports `artwork-mapping.json`. It never edits the site.
 - **`dist/` is committed.** Each site change has historically been committed together with its

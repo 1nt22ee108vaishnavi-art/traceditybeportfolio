@@ -1,6 +1,6 @@
 import { Link, useParams } from 'react-router-dom'
 import { ArrowLeft } from 'lucide-react'
-import { workCategories, type PortfolioImage } from '../data/portfolio'
+import { findWorkCategory, type PortfolioImage } from '../data/portfolio'
 import { useState } from 'react'
 
 function ArtworkImage({ image, index }: { image: PortfolioImage; index: number }){
@@ -13,6 +13,10 @@ function ArtworkImage({ image, index }: { image: PortfolioImage; index: number }
       <img
         src={image.src}
         alt={image.alt}
+        data-preview
+        tabIndex={0}
+        role="button"
+        aria-label={`Preview ${image.alt}`}
         style={{ objectPosition: image.position || 'center' }}
         onError={() => setFailed(true)}
       />
@@ -22,7 +26,7 @@ function ArtworkImage({ image, index }: { image: PortfolioImage; index: number }
 
 export default function CategoryPage(){
   const { slug } = useParams()
-  const category = workCategories.find(item => item.slug === slug)
+  const category = findWorkCategory(slug)
 
   if (!category) {
     return (

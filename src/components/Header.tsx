@@ -5,7 +5,6 @@ import { useLocation, useNavigate } from 'react-router-dom'
 const navigation = [
   { id: 'about', label: 'About Me' },
   { id: 'work', label: 'Work' },
-  { id: 'sketchbook', label: 'Sketchbook' },
   { id: 'daybook', label: 'Daybook' },
   { id: 'custom-creations', label: 'Custom Creations' },
   { id: 'contact', label: 'Contact' }

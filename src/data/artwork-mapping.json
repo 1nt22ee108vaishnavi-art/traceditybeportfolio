@@ -1,0 +1,608 @@
+{
+  "format": "artwork-organiser-mapping",
+  "version": 2,
+  "sourceFolder": "portfolio",
+  "exportedAt": "2026-10-13T09:49:56.299Z",
+  "homepage": {
+    "heroImage": {
+      "file": "WhatsApp Image 2026-10-10 at 7.35.11 PM (1).jpeg",
+      "importKey": "WhatsApp Image 2026-10-10 at 7.35.11 PM (1).jpeg",
+      "fileName": "WhatsApp Image 2026-10-10 at 7.35.11 PM (1).jpeg"
+    }
+  },
+  "about": {
+    "portrait": {
+      "file": "WhatsApp Image 2026-10-10 at 9.06.53 PM (1).jpeg",
+      "importKey": "WhatsApp Image 2026-10-10 at 9.06.53 PM (1).jpeg",
+      "fileName": "WhatsApp Image 2026-10-10 at 9.06.53 PM (1).jpeg"
+    }
+  },
+  "work": {
+    "categories": [
+      {
+        "id": "charcoal",
+        "name": "Cobalt",
+        "slug": "charcoal",
+        "pigment": "#47677b",
+        "order": 1,
+        "artworks": [
+          {
+            "id": "charcoal-artwork-1",
+            "order": 1,
+            "image": {
+              "file": "WhatsApp Image 2026-10-10 at 7.20.22 PM (1).jpeg",
+              "importKey": "WhatsApp Image 2026-10-10 at 7.20.22 PM (1).jpeg",
+              "fileName": "WhatsApp Image 2026-10-10 at 7.20.22 PM (1).jpeg"
+            }
+          },
+          {
+            "id": "charcoal-artwork-2",
+            "order": 2,
+            "image": {
+              "file": "WhatsApp Image 2026-10-10 at 7.20.22 PM (2).jpeg",
+              "importKey": "WhatsApp Image 2026-10-10 at 7.20.22 PM (2).jpeg",
+              "fileName": "WhatsApp Image 2026-10-10 at 7.20.22 PM (2).jpeg"
+            }
+          },
+          {
+            "id": "artwork-mv6g9g7o-2",
+            "order": 3,
+            "image": {
+              "file": "WhatsApp Image 2026-10-10 at 7.20.22 PM (3).jpeg",
+              "importKey": "WhatsApp Image 2026-10-10 at 7.20.22 PM (3).jpeg",
+              "fileName": "WhatsApp Image 2026-10-10 at 7.20.22 PM (3).jpeg"
+            }
+          },
+          {
+            "id": "artwork-mv6g9g6d-1",
+            "order": 4,
+            "image": {
+              "file": "WhatsApp Image 2026-10-10 at 7.20.22 PM.jpeg",
+              "importKey": "WhatsApp Image 2026-10-10 at 7.20.22 PM.jpeg",
+              "fileName": "WhatsApp Image 2026-10-10 at 7.20.22 PM.jpeg"
+            }
+          },
+          {
+            "id": "artwork-mv6hapdl-11",
+            "order": 5,
+            "image": {
+              "file": "WhatsApp Image 2026-10-10 at 7.20.23 PM.jpeg",
+              "importKey": "WhatsApp Image 2026-10-10 at 7.20.23 PM.jpeg",
+              "fileName": "WhatsApp Image 2026-10-10 at 7.20.23 PM.jpeg"
+            }
+          },
+          {
+            "id": "artwork-mv6htapt-40",
+            "order": 6,
+            "image": {
+              "file": "WhatsApp Image 2026-10-10 at 7.20.23 PM (6).jpeg",
+              "importKey": "WhatsApp Image 2026-10-10 at 7.20.23 PM (6).jpeg",
+              "fileName": "WhatsApp Image 2026-10-10 at 7.20.23 PM (6).jpeg"
+            }
+          },
+          {
+            "id": "artwork-mv6htauu-41",
+            "order": 7,
+            "image": {
+              "file": "WhatsApp Image 2026-10-10 at 7.20.23 PM (7).jpeg",
+              "importKey": "WhatsApp Image 2026-10-10 at 7.20.23 PM (7).jpeg",
+              "fileName": "WhatsApp Image 2026-10-10 at 7.20.23 PM (7).jpeg"
+            }
+          },
+          {
+            "id": "artwork-mv6htb61-42",
+            "order": 8,
+            "image": {
+              "file": "WhatsApp Image 2026-10-10 at 7.20.23 PM (8).jpeg",
+              "importKey": "WhatsApp Image 2026-10-10 at 7.20.23 PM (8).jpeg",
+              "fileName": "WhatsApp Image 2026-10-10 at 7.20.23 PM (8).jpeg"
+            }
+          }
+        ]
+      },
+      {
+        "id": "watercolor",
+        "name": "Moss",
+        "slug": "watercolor",
+        "pigment": "#78805b",
+        "order": 2,
+        "artworks": [
+          {
+            "id": "artwork-mv6hbag1-12",
+            "order": 1,
+            "image": {
+              "file": "WhatsApp Image 2026-10-10 at 7.31.57 PM (1).jpeg",
+              "importKey": "WhatsApp Image 2026-10-10 at 7.31.57 PM (1).jpeg",
+              "fileName": "WhatsApp Image 2026-10-10 at 7.31.57 PM (1).jpeg"
+            }
+          },
+          {
+            "id": "artwork-mv6hrycx-37",
+            "order": 2,
+            "image": {
+              "file": "WhatsApp Image 2026-10-10 at 7.35.37 PM.jpeg",
+              "importKey": "WhatsApp Image 2026-10-10 at 7.35.37 PM.jpeg",
+              "fileName": "WhatsApp Image 2026-10-10 at 7.35.37 PM.jpeg"
+            }
+          },
+          {
+            "id": "artwork-mv6hser4-38",
+            "order": 3,
+            "image": {
+              "file": "WhatsApp Image 2026-10-10 at 7.29.35 PM.jpeg",
+              "importKey": "WhatsApp Image 2026-10-10 at 7.29.35 PM.jpeg",
+              "fileName": "WhatsApp Image 2026-10-10 at 7.29.35 PM.jpeg"
+            }
+          },
+          {
+            "id": "artwork-mv6hseuv-39",
+            "order": 4,
+            "image": {
+              "file": "WhatsApp Image 2026-10-10 at 7.20.26 PM (7).jpeg",
+              "importKey": "WhatsApp Image 2026-10-10 at 7.20.26 PM (7).jpeg",
+              "fileName": "WhatsApp Image 2026-10-10 at 7.20.26 PM (7).jpeg"
+            }
+          },
+          {
+            "id": "artwork-mv6huzku-46",
+            "order": 5,
+            "image": {
+              "file": "WhatsApp Image 2026-10-10 at 7.20.26 PM (6).jpeg",
+              "importKey": "WhatsApp Image 2026-10-10 at 7.20.26 PM (6).jpeg",
+              "fileName": "WhatsApp Image 2026-10-10 at 7.20.26 PM (6).jpeg"
+            }
+          },
+          {
+            "id": "artwork-mv6hvd2e-47",
+            "order": 6,
+            "image": {
+              "file": "WhatsApp Image 2026-10-10 at 7.20.26 PM (8).jpeg",
+              "importKey": "WhatsApp Image 2026-10-10 at 7.20.26 PM (8).jpeg",
+              "fileName": "WhatsApp Image 2026-10-10 at 7.20.26 PM (8).jpeg"
+            }
+          },
+          {
+            "id": "artwork-mv6hvtwm-48",
+            "order": 7,
+            "image": {
+              "file": "WhatsApp Image 2026-10-10 at 7.20.26 PM (9).jpeg",
+              "importKey": "WhatsApp Image 2026-10-10 at 7.20.26 PM (9).jpeg",
+              "fileName": "WhatsApp Image 2026-10-10 at 7.20.26 PM (9).jpeg"
+            }
+          },
+          {
+            "id": "artwork-mv6hw7xp-49",
+            "order": 8,
+            "image": {
+              "file": "WhatsApp Image 2026-10-10 at 7.20.27 PM (2).jpeg",
+              "importKey": "WhatsApp Image 2026-10-10 at 7.20.27 PM (2).jpeg",
+              "fileName": "WhatsApp Image 2026-10-10 at 7.20.27 PM (2).jpeg"
+            }
+          },
+          {
+            "id": "artwork-mv6hwkvb-50",
+            "order": 9,
+            "image": {
+              "file": "WhatsApp Image 2026-10-10 at 7.22.41 PM.jpeg",
+              "importKey": "WhatsApp Image 2026-10-10 at 7.22.41 PM.jpeg",
+              "fileName": "WhatsApp Image 2026-10-10 at 7.22.41 PM.jpeg"
+            }
+          },
+          {
+            "id": "artwork-mv6hxa6p-51",
+            "order": 10,
+            "image": {
+              "file": "WhatsApp Image 2026-10-10 at 7.20.26 PM (2).jpeg",
+              "importKey": "WhatsApp Image 2026-10-10 at 7.20.26 PM (2).jpeg",
+              "fileName": "WhatsApp Image 2026-10-10 at 7.20.26 PM (2).jpeg"
+            }
+          },
+          {
+            "id": "artwork-mv6hxabu-52",
+            "order": 11,
+            "image": {
+              "file": "WhatsApp Image 2026-10-10 at 7.20.26 PM (5).jpeg",
+              "importKey": "WhatsApp Image 2026-10-10 at 7.20.26 PM (5).jpeg",
+              "fileName": "WhatsApp Image 2026-10-10 at 7.20.26 PM (5).jpeg"
+            }
+          },
+          {
+            "id": "artwork-mv6hxxtt-53",
+            "order": 12,
+            "image": {
+              "file": "WhatsApp Image 2026-10-10 at 7.20.26 PM (4).jpeg",
+              "importKey": "WhatsApp Image 2026-10-10 at 7.20.26 PM (4).jpeg",
+              "fileName": "WhatsApp Image 2026-10-10 at 7.20.26 PM (4).jpeg"
+            }
+          }
+        ]
+      },
+      {
+        "id": "ink-watercolor",
+        "name": "Terracotta",
+        "slug": "ink-and-watercolor",
+        "pigment": "#aa684e",
+        "order": 3,
+        "artworks": [
+          {
+            "id": "artwork-mv6hmxky-29",
+            "order": 1,
+            "image": {
+              "file": "WhatsApp Image 2026-10-10 at 8.49.20 PM (7).jpeg",
+              "importKey": "WhatsApp Image 2026-10-10 at 8.49.20 PM (7).jpeg",
+              "fileName": "WhatsApp Image 2026-10-10 at 8.49.20 PM (7).jpeg"
+            }
+          },
+          {
+            "id": "artwork-mv6hmy6v-30",
+            "order": 2,
+            "image": {
+              "file": "WhatsApp Image 2026-10-10 at 8.49.20 PM (8).jpeg",
+              "importKey": "WhatsApp Image 2026-10-10 at 8.49.20 PM (8).jpeg",
+              "fileName": "WhatsApp Image 2026-10-10 at 8.49.20 PM (8).jpeg"
+            }
+          },
+          {
+            "id": "artwork-mv6hmz0p-31",
+            "order": 3,
+            "image": {
+              "file": "WhatsApp Image 2026-10-10 at 8.49.20 PM (10).jpeg",
+              "importKey": "WhatsApp Image 2026-10-10 at 8.49.20 PM (10).jpeg",
+              "fileName": "WhatsApp Image 2026-10-10 at 8.49.20 PM (10).jpeg"
+            }
+          },
+          {
+            "id": "artwork-mv6hoh7z-32",
+            "order": 4,
+            "image": {
+              "file": "WhatsApp Image 2026-10-10 at 8.49.20 PM (12).jpeg",
+              "importKey": "WhatsApp Image 2026-10-10 at 8.49.20 PM (12).jpeg",
+              "fileName": "WhatsApp Image 2026-10-10 at 8.49.20 PM (12).jpeg"
+            }
+          },
+          {
+            "id": "artwork-mv6hohq0-33",
+            "order": 5,
+            "image": {
+              "file": "WhatsApp Image 2026-10-10 at 8.49.20 PM (13).jpeg",
+              "importKey": "WhatsApp Image 2026-10-10 at 8.49.20 PM (13).jpeg",
+              "fileName": "WhatsApp Image 2026-10-10 at 8.49.20 PM (13).jpeg"
+            }
+          },
+          {
+            "id": "artwork-mv6hoi80-34",
+            "order": 6,
+            "image": {
+              "file": "WhatsApp Image 2026-10-10 at 8.49.20 PM (15).jpeg",
+              "importKey": "WhatsApp Image 2026-10-10 at 8.49.20 PM (15).jpeg",
+              "fileName": "WhatsApp Image 2026-10-10 at 8.49.20 PM (15).jpeg"
+            }
+          },
+          {
+            "id": "artwork-mv6hp69q-35",
+            "order": 7,
+            "image": {
+              "file": "WhatsApp Image 2026-10-10 at 8.49.20 PM (19).jpeg",
+              "importKey": "WhatsApp Image 2026-10-10 at 8.49.20 PM (19).jpeg",
+              "fileName": "WhatsApp Image 2026-10-10 at 8.49.20 PM (19).jpeg"
+            }
+          },
+          {
+            "id": "artwork-mv6i1y94-58",
+            "order": 8,
+            "image": {
+              "file": "WhatsApp Image 2026-10-10 at 7.24.50 PM.jpeg",
+              "importKey": "WhatsApp Image 2026-10-10 at 7.24.50 PM.jpeg",
+              "fileName": "WhatsApp Image 2026-10-10 at 7.24.50 PM.jpeg"
+            }
+          }
+        ]
+      },
+      {
+        "id": "acrylic",
+        "name": "Ochre",
+        "slug": "acrylic",
+        "pigment": "#bf914d",
+        "order": 4,
+        "artworks": [
+          {
+            "id": "acrylic-artwork-1",
+            "order": 1,
+            "image": {
+              "file": "MS PAINT/WhatsApp Image 2026-10-10 at 8.49.19 PM (1).jpeg",
+              "importKey": "MS PAINT/WhatsApp Image 2026-10-10 at 8.49.19 PM (1).jpeg",
+              "fileName": "WhatsApp Image 2026-10-10 at 8.49.19 PM (1).jpeg"
+            }
+          },
+          {
+            "id": "acrylic-artwork-2",
+            "order": 2,
+            "image": {
+              "file": "MS PAINT/WhatsApp Image 2026-10-10 at 8.49.19 PM (2).jpeg",
+              "importKey": "MS PAINT/WhatsApp Image 2026-10-10 at 8.49.19 PM (2).jpeg",
+              "fileName": "WhatsApp Image 2026-10-10 at 8.49.19 PM (2).jpeg"
+            }
+          },
+          {
+            "id": "artwork-mv6hh1tl-16",
+            "order": 3,
+            "image": {
+              "file": "MS PAINT/WhatsApp Image 2026-10-10 at 8.49.19 PM (3).jpeg",
+              "importKey": "MS PAINT/WhatsApp Image 2026-10-10 at 8.49.19 PM (3).jpeg",
+              "fileName": "WhatsApp Image 2026-10-10 at 8.49.19 PM (3).jpeg"
+            }
+          },
+          {
+            "id": "artwork-mv6hhgpw-17",
+            "order": 4,
+            "image": {
+              "file": "MS PAINT/WhatsApp Image 2026-10-10 at 8.49.19 PM.jpeg",
+              "importKey": "MS PAINT/WhatsApp Image 2026-10-10 at 8.49.19 PM.jpeg",
+              "fileName": "WhatsApp Image 2026-10-10 at 8.49.19 PM.jpeg"
+            }
+          },
+          {
+            "id": "artwork-mv6hhpwj-18",
+            "order": 5,
+            "image": {
+              "file": "MS PAINT/WhatsApp Image 2026-10-10 at 8.49.20 PM (1).jpeg",
+              "importKey": "MS PAINT/WhatsApp Image 2026-10-10 at 8.49.20 PM (1).jpeg",
+              "fileName": "WhatsApp Image 2026-10-10 at 8.49.20 PM (1).jpeg"
+            }
+          },
+          {
+            "id": "artwork-mv6hi0g2-19",
+            "order": 6,
+            "image": {
+              "file": "MS PAINT/WhatsApp Image 2026-10-10 at 8.49.20 PM (2).jpeg",
+              "importKey": "MS PAINT/WhatsApp Image 2026-10-10 at 8.49.20 PM (2).jpeg",
+              "fileName": "WhatsApp Image 2026-10-10 at 8.49.20 PM (2).jpeg"
+            }
+          },
+          {
+            "id": "artwork-mv6hi8zj-20",
+            "order": 7,
+            "image": {
+              "file": "MS PAINT/WhatsApp Image 2026-10-10 at 8.49.20 PM (3).jpeg",
+              "importKey": "MS PAINT/WhatsApp Image 2026-10-10 at 8.49.20 PM (3).jpeg",
+              "fileName": "WhatsApp Image 2026-10-10 at 8.49.20 PM (3).jpeg"
+            }
+          },
+          {
+            "id": "artwork-mv6hz7uw-54",
+            "order": 8,
+            "image": {
+              "file": "WhatsApp Image 2026-10-10 at 7.30.51 PM (1).jpeg",
+              "importKey": "WhatsApp Image 2026-10-10 at 7.30.51 PM (1).jpeg",
+              "fileName": "WhatsApp Image 2026-10-10 at 7.30.51 PM (1).jpeg"
+            }
+          }
+        ]
+      },
+      {
+        "id": "sketches-doodles",
+        "name": "Rose",
+        "slug": "sketches-and-doodles",
+        "pigment": "#aa7479",
+        "order": 5,
+        "artworks": [
+          {
+            "id": "artwork-mv6hjnol-22",
+            "order": 1,
+            "image": {
+              "file": "WhatsApp Image 2026-10-10 at 7.20.23 PM (10).jpeg",
+              "importKey": "WhatsApp Image 2026-10-10 at 7.20.23 PM (10).jpeg",
+              "fileName": "WhatsApp Image 2026-10-10 at 7.20.23 PM (10).jpeg"
+            }
+          },
+          {
+            "id": "artwork-mv6hk8xe-24",
+            "order": 2,
+            "image": {
+              "file": "WhatsApp Image 2026-10-10 at 7.20.24 PM (7).jpeg",
+              "importKey": "WhatsApp Image 2026-10-10 at 7.20.24 PM (7).jpeg",
+              "fileName": "WhatsApp Image 2026-10-10 at 7.20.24 PM (7).jpeg"
+            }
+          },
+          {
+            "id": "artwork-mv6hkl3v-25",
+            "order": 3,
+            "image": {
+              "file": "WhatsApp Image 2026-10-10 at 7.20.24 PM.jpeg",
+              "importKey": "WhatsApp Image 2026-10-10 at 7.20.24 PM.jpeg",
+              "fileName": "WhatsApp Image 2026-10-10 at 7.20.24 PM.jpeg"
+            }
+          },
+          {
+            "id": "artwork-mv6hkub1-26",
+            "order": 4,
+            "image": {
+              "file": "WhatsApp Image 2026-10-10 at 7.20.24 PM (6).jpeg",
+              "importKey": "WhatsApp Image 2026-10-10 at 7.20.24 PM (6).jpeg",
+              "fileName": "WhatsApp Image 2026-10-10 at 7.20.24 PM (6).jpeg"
+            }
+          },
+          {
+            "id": "artwork-mv6hkv2y-27",
+            "order": 5,
+            "image": {
+              "file": "WhatsApp Image 2026-10-10 at 7.20.25 PM (8).jpeg",
+              "importKey": "WhatsApp Image 2026-10-10 at 7.20.25 PM (8).jpeg",
+              "fileName": "WhatsApp Image 2026-10-10 at 7.20.25 PM (8).jpeg"
+            }
+          },
+          {
+            "id": "artwork-mv6hmbux-28",
+            "order": 6,
+            "image": {
+              "file": "WhatsApp Image 2026-10-10 at 7.20.26 PM (1).jpeg",
+              "importKey": "WhatsApp Image 2026-10-10 at 7.20.26 PM (1).jpeg",
+              "fileName": "WhatsApp Image 2026-10-10 at 7.20.26 PM (1).jpeg"
+            }
+          }
+        ]
+      },
+      {
+        "id": "other-creations",
+        "name": "Plum",
+        "slug": "other-creations",
+        "pigment": "#806b80",
+        "order": 6,
+        "artworks": [
+          {
+            "id": "other-creations-artwork-2",
+            "order": 1,
+            "image": {
+              "file": "WhatsApp Image 2026-10-10 at 8.49.20 PM (1).jpeg",
+              "importKey": "WhatsApp Image 2026-10-10 at 8.49.20 PM (1).jpeg",
+              "fileName": "WhatsApp Image 2026-10-10 at 8.49.20 PM (1).jpeg"
+            }
+          },
+          {
+            "id": "artwork-mv6h883d-6",
+            "order": 2,
+            "image": {
+              "file": "WhatsApp Image 2026-10-10 at 8.49.20 PM (2).jpeg",
+              "importKey": "WhatsApp Image 2026-10-10 at 8.49.20 PM (2).jpeg",
+              "fileName": "WhatsApp Image 2026-10-10 at 8.49.20 PM (2).jpeg"
+            }
+          },
+          {
+            "id": "artwork-mv6hja94-21",
+            "order": 3,
+            "image": {
+              "file": "WhatsApp Image 2026-10-10 at 8.49.20 PM.jpeg",
+              "importKey": "WhatsApp Image 2026-10-10 at 8.49.20 PM.jpeg",
+              "fileName": "WhatsApp Image 2026-10-10 at 8.49.20 PM.jpeg"
+            }
+          },
+          {
+            "id": "artwork-mv6i0gkd-55",
+            "order": 4,
+            "image": {
+              "file": "WhatsApp Image 2026-10-10 at 7.25.51 PM (1).jpeg",
+              "importKey": "WhatsApp Image 2026-10-10 at 7.25.51 PM (1).jpeg",
+              "fileName": "WhatsApp Image 2026-10-10 at 7.25.51 PM (1).jpeg"
+            }
+          },
+          {
+            "id": "artwork-mv6i0xlc-56",
+            "order": 5,
+            "image": {
+              "file": "WhatsApp Image 2026-10-10 at 7.27.31 PM (1).jpeg",
+              "importKey": "WhatsApp Image 2026-10-10 at 7.27.31 PM (1).jpeg",
+              "fileName": "WhatsApp Image 2026-10-10 at 7.27.31 PM (1).jpeg"
+            }
+          },
+          {
+            "id": "artwork-mv6i19pw-57",
+            "order": 6,
+            "image": {
+              "file": "WhatsApp Image 2026-10-10 at 7.22.57 PM (1).jpeg",
+              "importKey": "WhatsApp Image 2026-10-10 at 7.22.57 PM (1).jpeg",
+              "fileName": "WhatsApp Image 2026-10-10 at 7.22.57 PM (1).jpeg"
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "sketchbook": [
+    {
+      "id": "sheet-1",
+      "order": 1,
+      "image": {
+        "file": "WhatsApp Image 2026-10-10 at 7.20.23 PM (1).jpeg",
+        "importKey": "WhatsApp Image 2026-10-10 at 7.20.23 PM (1).jpeg",
+        "fileName": "WhatsApp Image 2026-10-10 at 7.20.23 PM (1).jpeg"
+      }
+    },
+    {
+      "id": "sheet-2",
+      "order": 2,
+      "image": {
+        "file": "WhatsApp Image 2026-10-10 at 7.20.23 PM (2).jpeg",
+        "importKey": "WhatsApp Image 2026-10-10 at 7.20.23 PM (2).jpeg",
+        "fileName": "WhatsApp Image 2026-10-10 at 7.20.23 PM (2).jpeg"
+      }
+    },
+    {
+      "id": "sheet-3",
+      "order": 3,
+      "image": {
+        "file": "WhatsApp Image 2026-10-10 at 7.20.23 PM (3).jpeg",
+        "importKey": "WhatsApp Image 2026-10-10 at 7.20.23 PM (3).jpeg",
+        "fileName": "WhatsApp Image 2026-10-10 at 7.20.23 PM (3).jpeg"
+      }
+    },
+    {
+      "id": "sheet-4",
+      "order": 4,
+      "image": {
+        "file": "WhatsApp Image 2026-10-10 at 7.20.23 PM (4).jpeg",
+        "importKey": "WhatsApp Image 2026-10-10 at 7.20.23 PM (4).jpeg",
+        "fileName": "WhatsApp Image 2026-10-10 at 7.20.23 PM (4).jpeg"
+      }
+    },
+    {
+      "id": "sheet-mv6hdtl9-14",
+      "order": 5,
+      "image": {
+        "file": "WhatsApp Image 2026-10-10 at 7.20.23 PM (5).jpeg",
+        "importKey": "WhatsApp Image 2026-10-10 at 7.20.23 PM (5).jpeg",
+        "fileName": "WhatsApp Image 2026-10-10 at 7.20.23 PM (5).jpeg"
+      }
+    }
+  ],
+  "daybook": {
+    "coverImage": {
+      "file": "WhatsApp Image 2026-10-10 at 8.18.55 PM (1).jpeg",
+      "importKey": "WhatsApp Image 2026-10-10 at 8.18.55 PM (1).jpeg",
+      "fileName": "WhatsApp Image 2026-10-10 at 8.18.55 PM (1).jpeg"
+    },
+    "gallery": [
+      {
+        "id": "entry-1",
+        "order": 1,
+        "image": {
+          "file": "WhatsApp Image 2026-10-10 at 8.15.58 PM.jpeg",
+          "importKey": "WhatsApp Image 2026-10-10 at 8.15.58 PM.jpeg",
+          "fileName": "WhatsApp Image 2026-10-10 at 8.15.58 PM.jpeg"
+        }
+      },
+      {
+        "id": "entry-2",
+        "order": 2,
+        "image": {
+          "file": "WhatsApp Image 2026-10-10 at 8.18.55 PM (1).jpeg",
+          "importKey": "WhatsApp Image 2026-10-10 at 8.18.55 PM (1).jpeg",
+          "fileName": "WhatsApp Image 2026-10-10 at 8.18.55 PM (1).jpeg"
+        }
+      },
+      {
+        "id": "entry-3",
+        "order": 3,
+        "image": {
+          "file": "WhatsApp Image 2026-10-10 at 8.19.14 PM.jpeg",
+          "importKey": "WhatsApp Image 2026-10-10 at 8.19.14 PM.jpeg",
+          "fileName": "WhatsApp Image 2026-10-10 at 8.19.14 PM.jpeg"
+        }
+      },
+      {
+        "id": "entry-4",
+        "order": 4,
+        "image": {
+          "file": "WhatsApp Image 2026-10-10 at 8.19.42 PM.jpeg",
+          "importKey": "WhatsApp Image 2026-10-10 at 8.19.42 PM.jpeg",
+          "fileName": "WhatsApp Image 2026-10-10 at 8.19.42 PM.jpeg"
+        }
+      }
+    ]
+  },
+  "validation": {
+    "valid": true,
+    "missingImages": [],
+    "unassignedDestinations": [],
+    "warnings": []
+  }
+}
