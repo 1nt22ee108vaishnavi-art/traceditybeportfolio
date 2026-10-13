@@ -10,7 +10,10 @@ function ScrollToSection(){
   const { pathname, hash } = useLocation()
 
   useLayoutEffect(() => {
-    if (pathname !== '/' || !hash) return
+    if (pathname !== '/' || !hash) {
+      window.scrollTo(0, 0)
+      return
+    }
     document.getElementById(hash.slice(1))?.scrollIntoView({ block: 'start' })
   }, [pathname, hash])
 

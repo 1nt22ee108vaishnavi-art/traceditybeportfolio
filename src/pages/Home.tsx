@@ -93,17 +93,15 @@ export default function Home(){
         <SectionHeading eyebrow="A gathered collection" title="Work" />
         <div className="artist-palette" aria-label="Explore artwork by colour">
           {workCategories.map((category, index) => (
-            <a
+            <Link
               className={`palette-item palette-item-${index + 1}`}
-              href={`/work/${category.slug}`}
-              target="_blank"
-              rel="noreferrer"
+              to={`/work/${category.slug}`}
               key={category.id}
               style={{ '--pigment': category.pigment } as React.CSSProperties}
-              aria-label={`Open the ${category.color} collection in a new tab`}
+              aria-label={`Open the ${category.color} collection`}
             >
               <span className="palette-dab" aria-hidden="true" />
-            </a>
+            </Link>
           ))}
         </div>
         <span className="folio-mark">Page 03 — Work</span>
@@ -132,12 +130,12 @@ export default function Home(){
         </div>
         <form className="order-form" onSubmit={prepareCreationEmail}>
           <label className="form-wide">What would you like me to create?<textarea name="idea" rows={3} placeholder="Tell me about the idea that's been on your mind…" /></label>
-          <label>Preferred medium, optional<input name="medium" placeholder="Drawing, painting, illustration, or something else" /></label>
-          <label>Budget, optional<input name="budget" type="text" inputMode="decimal" placeholder="Your comfortable range" /></label>
-          <label className="form-wide">Colours, size, occasion, references, and other details, optional<textarea name="details" rows={3} placeholder="Add any details or reference links you'd like to share" /></label>
-          <label>Deadline, optional<input name="deadline" type="text" placeholder="A date or approximate timing" /></label>
-          <label>Name, optional<input name="name" autoComplete="name" /></label>
-          <label className="form-wide">Preferred contact details, optional<input name="contact" type="text" placeholder="Email, phone, or Instagram" /></label>
+          <label>Preferred medium<input name="medium" placeholder="Drawing, painting, illustration, or something else" /></label>
+          <label>Budget<input name="budget" type="text" inputMode="decimal" placeholder="Your comfortable range" /></label>
+          <label className="form-wide">Colours, size, occasion, references, and other details<textarea name="details" rows={3} placeholder="Add any details or reference links you'd like to share" /></label>
+          <label>Deadline<input name="deadline" type="text" placeholder="A date or approximate timing" /></label>
+          <label>Name<input name="name" autoComplete="name" /></label>
+          <label className="form-wide">Preferred contact details<input name="contact" type="text" placeholder="Email, phone, or Instagram" /></label>
           <div className="form-wide">
             <button className="button button-dark" type="submit">Let's make something <ArrowUpRight size={16} /></button>
             <p className="form-disclaimer">This opens a prepared email in your email app. Nothing is sent until you choose to send it.</p>

@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="color-scheme" content="light">
+    <title>Artwork Organiser</title>
+    <link rel="stylesheet" href="./organiser.css">
+    <script src="./organiser.js" defer></script>
+  </head>
+  <body>
+    <main class="organiser">
+      <header class="page-header">
+        <p class="eyebrow">A private, local tool</p>
+        <h1>Artwork Organiser</h1>
+        <p class="intro">Browse images on your computer, arrange a draft portfolio mapping, and export it when you are ready. Nothing is uploaded or changed on the website automatically.</p>
+      </header>
+
+      <section class="source-panel panel" aria-labelledby="source-heading">
+        <div>
+          <h2 id="source-heading">1. Choose your image folder</h2>
+          <p>Select <code>OneDrive\Desktop\portfolio</code>, or choose another folder or individual image files.</p>
+        </div>
+        <div class="source-actions">
+          <label class="button button-primary" for="folder-picker">Choose image folder</label>
+          <label class="button button-secondary" for="files-picker">Choose image files</label>
+          <input id="folder-picker" class="visually-hidden" type="file" accept="image/*" multiple webkitdirectory directory>
+          <input id="files-picker" class="visually-hidden" type="file" accept="image/*" multiple>
+        </div>
+        <p class="status" id="folder-status" role="status" aria-live="polite">Your files stay in this browser tab and are not uploaded.</p>
+      </section>
+
+      <div class="workspace">
+        <section class="gallery-panel panel" aria-labelledby="gallery-heading">
+          <div class="panel-heading">
+            <div>
+              <h2 id="gallery-heading">2. Your image collection</h2>
+              <p id="image-count">Choose a folder or files to see image thumbnails.</p>
+            </div>
+          </div>
+          <div class="gallery-grid" id="gallery-grid" aria-live="polite"></div>
+        </section>
+
+        <section class="editor-panel panel" aria-labelledby="editor-heading">
+          <h2 id="editor-heading">3. Build your draft mapping</h2>
+          <label class="field-label" for="section-picker">Choose a section to edit</label>
+          <select id="section-picker">
+            <option value="home">Homepage — A World of My Own</option>
+            <option value="about">About Me</option>
+            <option value="work">Work</option>
+            <option value="sketchbook">Sketchbook</option>
+            <option value="daybook">Daybook</option>
+          </select>
+          <div id="section-editor"></div>
+        </section>
+      </div>
+
+      <section class="validation-panel panel" aria-labelledby="validation-heading">
+        <div class="panel-heading">
+          <div>
+            <h2 id="validation-heading">4. Check your draft</h2>
+            <p id="validation-summary">Choose your images to check the mapping.</p>
+          </div>
+          <button id="validate-button" class="button button-secondary" type="button">Check mapping</button>
+        </div>
+        <div id="validation-results" class="validation-results" aria-live="polite"></div>
+      </section>
+
+      <section class="preview-panel panel" aria-labelledby="preview-heading">
+        <div class="panel-heading">
+          <div>
+            <h2 id="preview-heading">5. Review and export</h2>
+            <p id="draft-status">Your draft is kept in this browser on this device until you export it.</p>
+          </div>
+          <button id="export-button" class="button button-primary" type="button">Export complete JSON mapping</button>
+        </div>
+        <pre id="mapping-preview" class="mapping-preview" aria-label="JSON mapping preview"></pre>
+        <p id="export-status" class="status" role="status" aria-live="polite"></p>
+      </section>
+
+      <details class="help-panel panel">
+        <summary>How local images and exported mappings work</summary>
+        <div>
+          <p>A web page cannot browse OneDrive on its own. Use the folder picker to grant this page temporary access to your chosen images. Previews are created locally in your browser. The organiser does not upload, copy, move, or edit your source files.</p>
+          <p>The exported JSON can describe the homepage hero and About portrait, custom Work categories with any number of images, Sketchbook sheets, and a Daybook cover and gallery. The current website data uses <code>workCategories</code>, <code>sketchbookPages</code>, and <code>daybookEntries</code> arrays, so it can represent custom lists after those arrays are updated. The organiser never changes the site automatically; review the mapping and copy any images you want to use into <code>public/assets/portfolio</code> first.</p>
+          <p>Your draft is saved locally in this browser. To protect assignments when changing folders, existing paths are kept and validation marks paths that are not in the newly selected image collection.</p>
+        </div>
+      </details>
+    </main>
+  </body>
+</html>

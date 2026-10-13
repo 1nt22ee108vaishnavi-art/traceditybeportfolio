@@ -17,25 +17,34 @@ export type DaybookEntry = {
   alt: string
 }
 
-// Replace these local paths with your photos and artwork in public/assets/portfolio.
+const artworkPath = (relativePath: string) =>
+  `/assets/portfolio/organiser/${relativePath.split('/').map(encodeURIComponent).join('/')}`
+
+const workArtwork = (file: string, alt = 'Artwork on paper', position?: string): PortfolioImage => ({
+  src: artworkPath(file),
+  alt,
+  position
+})
+
+// Original image files are preserved in OneDrive; these are local portfolio copies.
 export const portfolioImages = {
   homePortrait: {
-    src: '/assets/portfolio/portraits/home-portrait.jpg',
+    src: artworkPath('WhatsApp Image 2026-10-10 at 7.35.11 PM (1).jpeg'),
     alt: 'Artist portrait',
     position: 'center 38%'
   },
   aboutPortrait: {
-    src: '/assets/portfolio/portraits/about-portrait.jpg',
+    src: artworkPath('WhatsApp Image 2026-10-10 at 9.06.53 PM (1).jpeg'),
     alt: 'Photograph of the artist',
     position: 'center 42%'
   },
   daybookPreview: {
-    src: '/assets/portfolio/daybook/01.jpg',
+    src: artworkPath('WhatsApp Image 2026-10-10 at 8.18.55 PM (1).jpeg'),
     alt: 'Daybook photograph preview'
   }
 } satisfies Record<string, PortfolioImage>
 
-// Change each colour, pigment, and image path here; existing collection URLs use the slug.
+// Artwork assignments and order come from the organiser mapping; keep slugs stable as they are public URLs.
 export const workCategories: WorkCategory[] = [
   {
     id: 'charcoal',
@@ -43,8 +52,8 @@ export const workCategories: WorkCategory[] = [
     slug: 'charcoal',
     pigment: '#47677b',
     artworks: [
-      { src: '/assets/portfolio/categories/charcoal/01.jpg', alt: 'Artwork on paper', position: 'center 42%' },
-      { src: '/assets/portfolio/categories/charcoal/02.jpg', alt: 'Artwork detail on paper', position: 'center 58%' }
+      workArtwork('WhatsApp Image 2026-10-10 at 7.20.22 PM.jpeg', 'Artwork on paper', 'center 42%'),
+      workArtwork('WhatsApp Image 2026-10-10 at 7.20.22 PM (2).jpeg', 'Artwork detail on paper', 'center 58%')
     ]
   },
   {
@@ -53,8 +62,8 @@ export const workCategories: WorkCategory[] = [
     slug: 'watercolor',
     pigment: '#78805b',
     artworks: [
-      { src: '/assets/portfolio/categories/watercolor/01.jpg', alt: 'Artwork on paper', position: 'center 40%' },
-      { src: '/assets/portfolio/categories/watercolor/02.jpg', alt: 'Artwork detail on paper', position: 'center 60%' }
+      workArtwork('WhatsApp Image 2026-10-10 at 7.20.23 PM (3).jpeg', 'Artwork on paper', 'center 40%'),
+      workArtwork('WhatsApp Image 2026-10-10 at 7.20.23 PM (5).jpeg', 'Artwork detail on paper', 'center 60%')
     ]
   },
   {
@@ -63,8 +72,8 @@ export const workCategories: WorkCategory[] = [
     slug: 'ink-and-watercolor',
     pigment: '#aa684e',
     artworks: [
-      { src: '/assets/portfolio/categories/ink-and-watercolor/01.jpg', alt: 'Artwork on paper', position: 'center 45%' },
-      { src: '/assets/portfolio/categories/ink-and-watercolor/02.jpg', alt: 'Artwork detail on paper', position: 'center 55%' }
+      workArtwork('WhatsApp Image 2026-10-10 at 7.20.23 PM (8).jpeg', 'Artwork on paper', 'center 45%'),
+      workArtwork('WhatsApp Image 2026-10-10 at 7.20.23 PM (7).jpeg', 'Artwork detail on paper', 'center 55%')
     ]
   },
   {
@@ -73,8 +82,8 @@ export const workCategories: WorkCategory[] = [
     slug: 'acrylic',
     pigment: '#bf914d',
     artworks: [
-      { src: '/assets/portfolio/categories/acrylic/01.jpg', alt: 'Artwork on paper', position: 'center 44%' },
-      { src: '/assets/portfolio/categories/acrylic/02.jpg', alt: 'Artwork detail on paper', position: 'center 58%' }
+      workArtwork('WhatsApp Image 2026-10-10 at 7.20.24 PM (6).jpeg', 'Artwork on paper', 'center 44%'),
+      workArtwork('WhatsApp Image 2026-10-10 at 7.20.24 PM (5).jpeg', 'Artwork detail on paper', 'center 58%')
     ]
   },
   {
@@ -83,8 +92,8 @@ export const workCategories: WorkCategory[] = [
     slug: 'sketches-and-doodles',
     pigment: '#aa7479',
     artworks: [
-      { src: '/assets/portfolio/categories/sketches-and-doodles/01.jpg', alt: 'Artwork on paper', position: 'center 40%' },
-      { src: '/assets/portfolio/categories/sketches-and-doodles/02.jpg', alt: 'Artwork detail on paper', position: 'center 62%' }
+      workArtwork('WhatsApp Image 2026-10-10 at 7.20.24 PM (7).jpeg', 'Artwork on paper', 'center 40%'),
+      workArtwork('WhatsApp Image 2026-10-10 at 7.20.25 PM (1).jpeg', 'Artwork detail on paper', 'center 62%')
     ]
   },
   {
@@ -93,28 +102,22 @@ export const workCategories: WorkCategory[] = [
     slug: 'other-creations',
     pigment: '#806b80',
     artworks: [
-      { src: '/assets/portfolio/categories/other-creations/01.jpg', alt: 'Artwork on paper', position: 'center 42%' },
-      { src: '/assets/portfolio/categories/other-creations/02.jpg', alt: 'Artwork detail on paper', position: 'center 60%' }
+      workArtwork('WhatsApp Image 2026-10-10 at 7.20.26 PM (9).jpeg', 'Artwork on paper', 'center 42%'),
+      workArtwork('WhatsApp Image 2026-10-10 at 7.20.26 PM (5).jpeg', 'Artwork detail on paper', 'center 60%')
     ]
   }
 ]
 
-// Add or replace local drawings in public/assets/portfolio/sketchbook.
 export const sketchbookPages: PortfolioImage[] = [
-  { src: '/assets/portfolio/sketchbook/sheet-01.jpg', alt: 'Sketchbook drawing' },
-  { src: '/assets/portfolio/sketchbook/sheet-02.jpg', alt: 'Sketchbook drawing' },
-  { src: '/assets/portfolio/sketchbook/sheet-03.jpg', alt: 'Sketchbook drawing' },
-  { src: '/assets/portfolio/sketchbook/sheet-04.jpg', alt: 'Sketchbook drawing' }
+  { src: artworkPath('WhatsApp Image 2026-10-10 at 7.20.23 PM (1).jpeg'), alt: 'Sketchbook drawing' },
+  { src: artworkPath('WhatsApp Image 2026-10-10 at 7.20.23 PM (2).jpeg'), alt: 'Sketchbook drawing' },
+  { src: artworkPath('WhatsApp Image 2026-10-10 at 7.20.23 PM (3).jpeg'), alt: 'Sketchbook drawing' },
+  { src: artworkPath('WhatsApp Image 2026-10-10 at 7.20.23 PM (4).jpeg'), alt: 'Sketchbook drawing' },
+  { src: artworkPath('WhatsApp Image 2026-10-10 at 7.20.23 PM (5).jpeg'), alt: 'Sketchbook drawing' }
 ]
 
-// Replace or extend these local photographs in public/assets/portfolio/daybook.
 export const daybookEntries: DaybookEntry[] = [
-  { src: '/assets/portfolio/daybook/01.jpg', alt: 'Daybook photograph 1' },
-  { src: '/assets/portfolio/daybook/02.jpg', alt: 'Daybook photograph 2' },
-  { src: '/assets/portfolio/daybook/03.jpg', alt: 'Daybook photograph 3' },
-  { src: '/assets/portfolio/daybook/04.jpg', alt: 'Daybook photograph 4' },
-  { src: '/assets/portfolio/daybook/05.jpg', alt: 'Daybook photograph 5' },
-  { src: '/assets/portfolio/daybook/06.jpg', alt: 'Daybook photograph 6' },
-  { src: '/assets/portfolio/daybook/07.jpg', alt: 'Daybook photograph 7' },
-  { src: '/assets/portfolio/daybook/08.jpg', alt: 'Daybook photograph 8' }
+  { src: artworkPath('WhatsApp Image 2026-10-10 at 8.19.14 PM.jpeg'), alt: 'Daybook photograph 1' },
+  { src: artworkPath('WhatsApp Image 2026-10-10 at 8.19.42 PM.jpeg'), alt: 'Daybook photograph 2' },
+  { src: artworkPath('WhatsApp Image 2026-10-10 at 8.15.58 PM.jpeg'), alt: 'Daybook photograph 3' }
 ]

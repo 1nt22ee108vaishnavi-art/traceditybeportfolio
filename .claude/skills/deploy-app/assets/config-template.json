@@ -1,0 +1,19 @@
+{
+  "vercel": {
+    "projectName": "",
+    "team": "",
+    "productionBranch": "main",
+    "framework": "vite",
+    "buildCommand": "npm run build",
+    "outputDirectory": "dist",
+    "installCommand": "npm install",
+    "productionUrl": ""
+  },
+  "frontend": {
+    "nodeVersion": "20.x",
+    "env": {}
+  },
+  "verify": {
+    "paths": ["/", "/daybook", "/work/charcoal"]
+  }
+}
