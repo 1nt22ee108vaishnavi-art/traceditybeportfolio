@@ -1001,7 +1001,23 @@ button:focus-visible, a:focus-visible, input:focus-visible, textarea:focus-visib
 body { background: #352419; }
 .notebook-app {
   color: #f2e5d0;
-  background: #352419 url("/assets/painted-background.webp") center / cover fixed no-repeat;
+  background: #352419;
+}
+/* The painting is pinned to the screen on every device, so phones see the same composition as
+   desktops rather than a zoomed slice stretched down the whole page. A fixed layer is used instead
+   of background-attachment: fixed, which phones (iOS especially) ignore. 100lvh keeps it still while
+   mobile browser bars show and hide. */
+.notebook-app::before {
+  position: fixed;
+  z-index: -1;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  height: 100lvh;
+  content: "";
+  pointer-events: none;
+  background: #352419 url("/assets/painted-background.webp") center / cover no-repeat;
 }
 .site-header,
 .page-section,
@@ -1036,9 +1052,6 @@ body { background: #352419; }
   background: rgba(48,32,22,.82);
 }
 
-@media (max-width: 767px) {
-  .notebook-app { background-attachment: scroll; }
-}
 
 @media (prefers-reduced-motion: reduce) {
   .scroll-sunlight { display: none; }
@@ -1143,4 +1156,22 @@ img[data-preview]:focus-visible { outline: 2px solid var(--magenta); outline-off
 @media (max-width: 767px) {
   .daybook-gallery { grid-template-columns: minmax(0, 1fr); }
   .daybook-teaser-photo { aspect-ratio: 16 / 9; }
+}
+
+/* ---------- Every device ---------- */
+/* The sticky header gets a soft, dark backing so content scrolls cleanly underneath it instead of
+   showing through the navigation. */
+.notebook-app .site-header {
+  background: rgba(40, 26, 18, .72) !important;
+  -webkit-backdrop-filter: blur(12px) saturate(1.1);
+  backdrop-filter: blur(12px) saturate(1.1);
+}
+@media (max-width: 767px) {
+  /* Edge to edge and flush with the top, so nothing peeks past the header while scrolling. */
+  .notebook-app .site-header { margin: 0; width: 100%; }
+  /* The open menu is solid, so the page underneath never shows through its links. */
+  .notebook-app .main-nav.is-open { background: #2e1f15; }
+  /* Tighter, even spacing between sections on small screens. */
+  .page-section { padding-top: 58px; padding-bottom: 54px; }
+  .hero-section { padding-top: 64px; padding-bottom: 58px; }
 }
