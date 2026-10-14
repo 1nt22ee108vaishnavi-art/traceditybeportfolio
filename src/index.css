@@ -275,6 +275,8 @@ button:focus-visible, a:focus-visible, input:focus-visible, textarea:focus-visib
 .order-form input[type="file"] { font-size: 10px; }
 .order-form textarea { resize: vertical; }
 .order-form input::placeholder { color: #8c857a; }
+.order-form select { cursor: pointer; }
+.order-form select option { color: #29251f; background: #f3ece2; }
 .order-form small { color: #756e64; line-height: 1.5; }
 .form-wide { grid-column: 1 / -1; }
 .form-disclaimer, .form-feedback { max-width: 600px; color: #756e64; font-size: 10px; line-height: 1.6; }
@@ -299,8 +301,6 @@ button:focus-visible, a:focus-visible, input:focus-visible, textarea:focus-visib
   box-shadow: 0 8px 24px rgba(52,40,24,.15);
   font-size: 10px;
 }
-.contact-qr { display: flex; align-items: center; gap: 12px; margin-top: 30px; color: #756d61; font-size: 9px; letter-spacing: .12em; text-transform: uppercase; }
-.contact-qr div { width: 58px; height: 58px; display: grid; place-content: center; border: 1px dashed rgba(62,48,28,.42); color: var(--ink); font-size: 8px; line-height: 1.3; letter-spacing: 0; text-align: center; }
 
 @media (max-width: 1000px) {
   .site-header-inner { gap: 20px; }
@@ -445,7 +445,6 @@ button:focus-visible, a:focus-visible, input:focus-visible, textarea:focus-visib
 .about-copy .about-body p + p { margin-top: 22px; }
 .contact-copy { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, .85fr); align-items: center; gap: clamp(28px, 5vw, 76px); width: min(100%, 1080px); }
 .contact-links { margin-top: 0; flex-direction: column; align-items: flex-start; }
-.contact-qr { grid-column: 2; margin-top: -24px; }
 .page-section .folio-mark { letter-spacing: .1em; font-size: 8px; }
 
 @media (min-width: 1024px) {
@@ -513,9 +512,8 @@ button:focus-visible, a:focus-visible, input:focus-visible, textarea:focus-visib
   .order-form { grid-template-columns: minmax(0, 1fr); }
   .order-form .form-wide { grid-column: 1; }
   .contact-copy { grid-template-columns: minmax(0, 1fr); gap: 28px; }
-  .contact-links, .contact-qr { grid-column: 1; }
+  .contact-links { grid-column: 1; }
   .contact-links { gap: 8px; }
-  .contact-qr { margin-top: 0; }
   .work-grid { grid-template-columns: repeat(6, minmax(0, 1fr)); grid-auto-rows: clamp(22px, 5.2vw, 30px); margin-top: 40px; }
   .work-card:nth-child(1) { grid-column: 1 / span 5; grid-row: 1 / span 6; }
   .work-card:nth-child(2) { grid-column: 3 / span 4; grid-row: 5 / span 5; }
@@ -607,7 +605,7 @@ button:focus-visible, a:focus-visible, input:focus-visible, textarea:focus-visib
 
 .artist-palette {
   display: grid;
-  grid-template-columns: repeat(6, minmax(0, 1fr));
+  grid-template-columns: repeat(3, minmax(0, 1fr));
   align-items: start;
   gap: clamp(12px, 2.4vw, 36px);
   margin: clamp(52px, 7vw, 96px) auto 30px;
@@ -657,18 +655,74 @@ button:focus-visible, a:focus-visible, input:focus-visible, textarea:focus-visib
   border-radius: 0;
   box-shadow: none;
   transform: rotate(0deg);
+  /* The pigments come from the organiser export; they are lifted here so they glow on the dark background. */
+  filter: saturate(1.6) brightness(1.45);
   -webkit-mask: url("/assets/palette-flower.png") center / contain no-repeat;
   mask: url("/assets/palette-flower.png") center / contain no-repeat;
   transition: transform .7s cubic-bezier(.34,1.4,.5,1), filter .28s ease;
 }
 .palette-dab::before { display: none; }
 .palette-item:hover .palette-dab,
-.palette-item:focus-visible .palette-dab { transform: rotate(90deg) scale(1.08); filter: saturate(1.15) brightness(1.08); }
+.palette-item:focus-visible .palette-dab { transform: rotate(90deg) scale(1.08); filter: saturate(1.8) brightness(1.6); }
 @media (prefers-reduced-motion: reduce) {
   .palette-item:hover .palette-dab,
   .palette-item:focus-visible .palette-dab { transform: scale(1.06); }
 }
 .palette-item:focus-visible { outline-offset: 2px; }
+
+/* The painted eyes sit between the two rows of flowers; the irises follow the pointer. */
+.palette-eyes {
+  grid-column: 1 / -1;
+  width: min(100%, 780px);
+  margin: clamp(-8px, -1vw, 0px) auto;
+  -webkit-mask-image: linear-gradient(90deg, transparent, #000 12%, #000 88%, transparent), linear-gradient(transparent, #000 14%, #000 86%, transparent);
+  -webkit-mask-composite: source-in;
+  mask-image: linear-gradient(90deg, transparent, #000 12%, #000 88%, transparent), linear-gradient(transparent, #000 14%, #000 86%, transparent);
+  mask-composite: intersect;
+}
+.eye-stage { position: relative; width: 100%; aspect-ratio: 1600 / 533; touch-action: pan-y; }
+.eye-base { display: block; width: 100%; height: 100%; }
+.eye-painting { filter: url(#hair-sway); }
+@media (prefers-reduced-motion: reduce) { .eye-painting { filter: none; } }
+.eye-iris-clip { position: absolute; inset: 0; pointer-events: none; }
+.eye-iris { position: absolute; aspect-ratio: 1; will-change: transform; }
+.eye-iris img { display: block; width: 100%; height: 100%; max-width: none; }
+/* A hovered flower's colour, reflected in the eyes: the iris takes on its hue and a small flower
+   catches the light. Both fade in and out. The 3% inset matches the iris cut-out's padding. */
+.eye-tint,
+.eye-reflection { position: absolute; opacity: 0; transition: opacity .45s ease; }
+.eye-tint {
+  inset: 3%;
+  border-radius: 50%;
+  background: radial-gradient(circle, transparent 24%, var(--eye-tint) 44%, var(--eye-tint) 100%);
+  filter: saturate(1.6) brightness(1.45);
+  mix-blend-mode: color;
+}
+.eye-reflection {
+  top: 22%;
+  left: 52%;
+  width: 26%;
+  aspect-ratio: 1;
+  background: var(--eye-tint);
+  filter: saturate(1.6) brightness(1.9);
+  mix-blend-mode: screen;
+  -webkit-mask: url("/assets/palette-flower.png") center / contain no-repeat;
+  mask: url("/assets/palette-flower.png") center / contain no-repeat;
+}
+.is-reflecting .eye-tint { opacity: .42; }
+.is-reflecting .eye-reflection { opacity: .8; }
+/* The upper eyelid: painted lid skin with a dark lash line along its curved edge. It waits above the
+   eye opening (hidden by the opening's clip) and slides down as --lid goes from 0 to 1 for a blink. */
+.eye-lid {
+  position: absolute;
+  border-radius: 0 0 50% 50% / 0 0 72% 72%;
+  background-image: linear-gradient(to bottom, rgba(60, 30, 14, 0) 0%, rgba(60, 30, 14, .12) 60%, rgba(32, 15, 8, .65) 92%, rgba(26, 12, 6, .95) 100%), url("/assets/eyes/painted-eyes-base.jpg");
+  background-repeat: no-repeat;
+  background-color: #8a4c26;
+  box-shadow: 0 2px 0 1px rgba(32, 15, 8, .95), 0 5px 7px rgba(32, 15, 8, .45);
+  transform: translateY(calc((var(--lid, 0) - 1) * 100%));
+  will-change: transform;
+}
 
 .category-section {
   display: grid;
@@ -702,7 +756,7 @@ button:focus-visible, a:focus-visible, input:focus-visible, textarea:focus-visib
   .sketchbook-layout { gap: 46px; }
   .about-photograph,
   .sketchbook-photograph { height: clamp(300px, 43vw, 420px); }
-  .artist-palette { grid-template-columns: repeat(3, minmax(0, 1fr)); row-gap: 34px; }
+  .artist-palette { row-gap: 34px; }
   .palette-dab { width: clamp(110px, 17vw, 170px); }
   .category-section { grid-template-columns: minmax(0, .8fr) minmax(0, 1.2fr); gap: 34px; }
 }
@@ -718,8 +772,8 @@ button:focus-visible, a:focus-visible, input:focus-visible, textarea:focus-visib
   .about-photograph,
   .sketchbook-photograph { grid-column: 1; grid-row: 2; height: clamp(300px, 88vw, 440px); }
   .about-body p { font-size: 15px; line-height: 1.8; }
-  .artist-palette { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px 12px; margin-top: 40px; }
-  .palette-dab { width: clamp(110px, 36vw, 150px); }
+  .artist-palette { gap: 20px 8px; margin-top: 40px; }
+  .palette-dab { width: clamp(84px, 26vw, 130px); }
   .category-section { grid-template-columns: minmax(0, 1fr); gap: 36px; }
   .category-artworks { grid-template-columns: minmax(0, 1fr); gap: 22px; }
   .category-artwork,
@@ -1072,4 +1126,21 @@ img[data-preview]:focus-visible { outline: 2px solid var(--magenta); outline-off
 }
 @media (prefers-reduced-motion: reduce) {
   .artwork-preview-viewport img { transition: none; }
+}
+
+/* ---------- Daybook: every photograph in a 16:9 frame ---------- */
+/* The photos fill their frame (cropped at the edges, centred); the preview still shows each one whole. */
+.daybook-gallery {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  grid-auto-rows: auto;
+  align-items: start;
+}
+.daybook-gallery .daybook-gallery-item { grid-column: auto; grid-row: auto; transform: none; }
+.daybook-gallery-item .daybook-photo,
+.daybook-teaser-photo { height: auto; aspect-ratio: 16 / 9; overflow: hidden; }
+.daybook-gallery-item .daybook-photo img,
+.daybook-teaser-photo img { width: 100%; height: 100%; object-fit: cover; object-position: center; }
+@media (max-width: 767px) {
+  .daybook-gallery { grid-template-columns: minmax(0, 1fr); }
+  .daybook-teaser-photo { aspect-ratio: 16 / 9; }
 }

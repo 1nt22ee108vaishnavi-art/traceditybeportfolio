@@ -1,9 +1,10 @@
 import React, { FormEvent, useState } from 'react'
 import { ArrowDown, ArrowUpRight } from 'lucide-react'
-import { Link } from 'react-router-dom'
-import { portfolioImages, workCategories, type PortfolioImage } from '../data/portfolio'
+import { Link, useNavigate } from 'react-router-dom'
+import { commissionMediums, portfolioImages, workCategories, type PortfolioImage } from '../data/portfolio'
 import DaybookPhoto from '../components/DaybookPhoto'
 import ScrollSunlight from '../components/ScrollSunlight'
+import PaintedEyes from '../components/PaintedEyes'
 
 function ImageSlot({
   image,
@@ -43,6 +44,20 @@ function SectionHeading({ eyebrow, title, note }: { eyebrow?: string; title: str
 }
 
 export default function Home(){
+  // The pigment of the flower being hovered, reflected in the painted eyes.
+  const [eyeTint, setEyeTint] = useState<string | null>(null)
+  const [blinkSignal, setBlinkSignal] = useState(0)
+  const navigate = useNavigate()
+
+  // Choosing a flower makes the eyes blink before its collection opens.
+  function selectFlower(event: React.MouseEvent<HTMLAnchorElement>, slug: string){
+    if (event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return
+    event.preventDefault()
+    setBlinkSignal(count => count + 1)
+    window.setTimeout(() => navigate(`/work/${slug}`), 420)
+  }
+
   function prepareCreationEmail(event: FormEvent<HTMLFormElement>){
     event.preventDefault()
     const formData = new FormData(event.currentTarget)
@@ -96,15 +111,22 @@ export default function Home(){
         <SectionHeading eyebrow="A gathered collection" title="Work" />
         <div className="artist-palette" aria-label="Explore artwork by colour">
           {workCategories.map((category, index) => (
-            <Link
-              className={`palette-item palette-item-${index + 1}`}
-              to={`/work/${category.slug}`}
-              key={category.id}
-              style={{ '--pigment': category.pigment } as React.CSSProperties}
-              aria-label={`Open the ${category.color} collection`}
-            >
-              <span className="palette-dab" aria-hidden="true" />
-            </Link>
+            <React.Fragment key={category.id}>
+              {index === 3 && <PaintedEyes className="palette-eyes" tint={eyeTint} blinkSignal={blinkSignal} />}
+              <Link
+                className={`palette-item palette-item-${index + 1}`}
+                to={`/work/${category.slug}`}
+                style={{ '--pigment': category.pigment } as React.CSSProperties}
+                aria-label={`Open the ${category.color} collection`}
+                onClick={event => selectFlower(event, category.slug)}
+                onMouseEnter={() => setEyeTint(category.pigment)}
+                onMouseLeave={() => setEyeTint(null)}
+                onFocus={() => setEyeTint(category.pigment)}
+                onBlur={() => setEyeTint(null)}
+              >
+                <span className="palette-dab" aria-hidden="true" />
+              </Link>
+            </React.Fragment>
           ))}
         </div>
         <span className="folio-mark">Page 03 — Work</span>
@@ -129,7 +151,12 @@ export default function Home(){
         </div>
         <form className="order-form" onSubmit={prepareCreationEmail}>
           <label className="form-wide">What would you like me to create?<textarea name="idea" rows={3} placeholder="Tell me about the idea that's been on your mind…" /></label>
-          <label>Preferred medium<input name="medium" placeholder="Drawing, painting, illustration, or something else" /></label>
+          <label>Preferred medium
+            <select name="medium" defaultValue="">
+              <option value="">Choose a medium</option>
+              {commissionMediums.map(medium => <option key={medium} value={medium}>{medium}</option>)}
+            </select>
+          </label>
           <label>Budget<input name="budget" type="text" inputMode="decimal" placeholder="Your comfortable range" /></label>
           <label className="form-wide">Colours, size, occasion, references, and other details<textarea name="details" rows={3} placeholder="Add any details or reference links you'd like to share" /></label>
           <label>Deadline<input name="deadline" type="text" placeholder="A date or approximate timing" /></label>
@@ -149,10 +176,6 @@ export default function Home(){
           <div className="contact-links">
             <a href="mailto:vonthegoo@gmail.com">vonthegoo@gmail.com <ArrowUpRight size={16} aria-hidden="true" /></a>
             <a href="https://instagram.com/traced.it.bye" target="_blank" rel="noreferrer">@traced.it.bye on Instagram <ArrowUpRight size={16} aria-hidden="true" /></a>
-          </div>
-          <div className="contact-qr" aria-label="Instagram QR code placeholder">
-            <span>Instagram QR</span>
-            <div>QR<br />placeholder</div>
           </div>
         </div>
         <span className="folio-mark">Page 06 — Contact</span>

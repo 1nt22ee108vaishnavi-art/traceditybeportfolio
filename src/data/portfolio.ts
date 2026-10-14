@@ -123,3 +123,16 @@ export const daybookEntries: DaybookEntry[] = [
   ...mappedDaybook,
   ...extraImages(extras.daybook, index => `Daybook photograph ${mappedDaybook.length + index + 1}`)
 ]
+
+// Choices for "Preferred medium" in the Custom Creations form.
+export const commissionMediums = [
+  'Drawing (pencil or graphite)',
+  'Charcoal',
+  'Acrylic painting',
+  'Watercolour',
+  'Ink and watercolour',
+  'Illustration',
+  'Digital (MS Paint)',
+  'Sketches and doodles',
+  'Something else, or not sure yet'
+]
