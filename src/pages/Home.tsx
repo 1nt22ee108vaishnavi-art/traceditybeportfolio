@@ -36,6 +36,19 @@ function ImageSlot({
 const contactEmail = 'vonthegoo@gmail.com'
 const gmailLink = `https://mail.google.com/mail/?view=cm&fs=1&to=${contactEmail}`
 
+function deadlineProblem(value: string){
+  if (!value) return ''
+  const match = value.match(/^(\d{2})\/(\d{2})\/(\d{2})$/)
+  if (!match) return 'Please enter the date as DD/MM/YY.'
+  const [day, month, year] = [Number(match[1]), Number(match[2]), 2000 + Number(match[3])]
+  const date = new Date(year, month - 1, day)
+  if (date.getDate() !== day || date.getMonth() !== month - 1) return "That date doesn't exist. Please check it."
+  const today = new Date()
+  today.setHours(0, 0, 0, 0)
+  if (date < today) return "Please choose a date that hasn't passed yet."
+  return ''
+}
+
 function SectionHeading({ eyebrow, title, note }: { eyebrow?: string; title: string; note?: string }){
   return (
     <div className="section-heading">
@@ -62,13 +75,28 @@ export default function Home(){
     window.setTimeout(() => navigate(`/work/${slug}`), 420)
   }
 
+  // Keeps only the 10 digits after +91, even if someone pastes "+91 98765 43210".
+  function updatePhone(event: React.ChangeEvent<HTMLInputElement>){
+    let digits = event.currentTarget.value.replace(/\D/g, '')
+    if (digits.length > 10 && digits.startsWith('91')) digits = digits.slice(2)
+    else if (digits.length > 10 && digits.startsWith('0')) digits = digits.slice(1)
+    event.currentTarget.value = digits.slice(0, 10)
+  }
+
+  // Formats the deadline as DD/MM/YY while typing and checks it is a real, upcoming date.
+  function updateDeadline(event: React.ChangeEvent<HTMLInputElement>){
+    const input = event.currentTarget
+    const digits = input.value.replace(/\D/g, '').slice(0, 6)
+    input.value = [digits.slice(0, 2), digits.slice(2, 4), digits.slice(4, 6)].filter(Boolean).join('/')
+    input.setCustomValidity(deadlineProblem(input.value))
+  }
+
   // Sends the filled-in form straight to my inbox through FormSubmit.
   async function sendCreationRequest(event: FormEvent<HTMLFormElement>){
     event.preventDefault()
     const form = event.currentTarget
     const formData = new FormData(form)
     const field = (name: string) => String(formData.get(name) || '').trim()
-    const contact = field('contact')
     setFormStatus('sending')
     try {
       const response = await fetch(`https://formsubmit.co/ajax/${contactEmail}`, {
@@ -78,14 +106,13 @@ export default function Home(){
           _subject: `Custom creation idea${field('name') ? ` from ${field('name')}` : ''}`,
           _template: 'table',
           _captcha: 'false',
-          ...(contact.includes('@') ? { _replyto: contact } : {}),
           'What would you like me to create?': field('idea'),
           'Preferred medium': field('medium'),
           'Colours, size, occasion, references, and other details': field('details'),
           Budget: field('budget'),
           Deadline: field('deadline'),
           Name: field('name'),
-          'Preferred contact details': contact
+          'Contact number': `+91 ${field('phone')}`
         })
       })
       const result = await response.json().catch(() => null)
@@ -182,9 +209,28 @@ export default function Home(){
           </label>
           <label>Budget<input name="budget" type="text" inputMode="decimal" placeholder="Your comfortable range" /></label>
           <label className="form-wide">Colours, size, occasion, references, and other details<textarea name="details" rows={3} placeholder="Add any details or reference links you'd like to share" /></label>
-          <label>Deadline<input name="deadline" type="text" placeholder="A date or approximate timing" /></label>
+          <label>Deadline
+            <input name="deadline" type="text" inputMode="numeric" placeholder="DD/MM/YY" maxLength={8} autoComplete="off" onChange={updateDeadline} />
+          </label>
           <label>Name<input name="name" autoComplete="name" /></label>
-          <label className="form-wide">Preferred contact details<input name="contact" type="text" placeholder="Email, phone, or Instagram" /></label>
+          <label className="form-wide">Contact number
+            <span className="phone-field">
+              <span className="phone-prefix" aria-hidden="true">+91</span>
+              <input
+                name="phone"
+                type="tel"
+                inputMode="numeric"
+                autoComplete="tel-national"
+                placeholder="10-digit mobile number"
+                required
+                maxLength={10}
+                pattern="[6-9][0-9]{9}"
+                title="Please enter a 10-digit Indian mobile number."
+                aria-label="Contact number, +91"
+                onChange={updatePhone}
+              />
+            </span>
+          </label>
           <div className="form-wide">
             <button className="button button-dark" type="submit" disabled={formStatus === 'sending'}>
               {formStatus === 'sending' ? 'Sending…' : <>Let's make something <ArrowUpRight size={16} /></>}
