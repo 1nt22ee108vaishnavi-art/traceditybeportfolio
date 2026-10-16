@@ -7,7 +7,7 @@ single-page site, styled with Tailwind and plain CSS, deployed on Vercel.
 
 - **Stack:** Vite 5, React 18, react-router-dom 6, TypeScript (strict), Tailwind 3, lucide-react icons.
 - **No backend.** There is no API, database, auth, payment or environment variable. The commission
-  form in `src/pages/Home.tsx` only opens a prepared `mailto:` email.
+  form in `src/pages/Home.tsx` posts to FormSubmit (formsubmit.co), which emails it to vonthegoo@gmail.com.
 - **Routes** (`src/App.tsx`): `/`, `/work/:slug`, `/daybook`. `vercel.json` rewrites the last two to
   `/` so deep links work. A new top-level route also needs a rewrite there.
 - **Artwork data:** `src/data/portfolio.ts` builds every image list from two files:

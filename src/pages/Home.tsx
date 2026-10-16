@@ -33,6 +33,9 @@ function ImageSlot({
   )
 }
 
+const contactEmail = 'vonthegoo@gmail.com'
+const gmailLink = `https://mail.google.com/mail/?view=cm&fs=1&to=${contactEmail}`
+
 function SectionHeading({ eyebrow, title, note }: { eyebrow?: string; title: string; note?: string }){
   return (
     <div className="section-heading">
@@ -48,6 +51,7 @@ export default function Home(){
   const [eyeTint, setEyeTint] = useState<string | null>(null)
   const [blinkSignal, setBlinkSignal] = useState(0)
   const navigate = useNavigate()
+  const [formStatus, setFormStatus] = useState<'idle' | 'sending' | 'sent' | 'error'>('idle')
 
   // Choosing a flower makes the eyes blink before its collection opens.
   function selectFlower(event: React.MouseEvent<HTMLAnchorElement>, slug: string){
@@ -58,20 +62,39 @@ export default function Home(){
     window.setTimeout(() => navigate(`/work/${slug}`), 420)
   }
 
-  function prepareCreationEmail(event: FormEvent<HTMLFormElement>){
+  // Sends the filled-in form straight to my inbox through FormSubmit.
+  async function sendCreationRequest(event: FormEvent<HTMLFormElement>){
     event.preventDefault()
-    const formData = new FormData(event.currentTarget)
-    const details = [
-      `What would you like me to create?\n${formData.get('idea') || ''}`,
-      `Preferred medium\n${formData.get('medium') || ''}`,
-      `Colours, size, occasion, references, and other details\n${formData.get('details') || ''}`,
-      `Budget\n${formData.get('budget') || ''}`,
-      `Deadline\n${formData.get('deadline') || ''}`,
-      `Name\n${formData.get('name') || ''}`,
-      `Preferred contact details\n${formData.get('contact') || ''}`
-    ].join('\n')
-    const mailto = `mailto:vonthegoo@gmail.com?subject=${encodeURIComponent('Custom creation idea')}&body=${encodeURIComponent(details)}`
-    window.location.href = mailto
+    const form = event.currentTarget
+    const formData = new FormData(form)
+    const field = (name: string) => String(formData.get(name) || '').trim()
+    const contact = field('contact')
+    setFormStatus('sending')
+    try {
+      const response = await fetch(`https://formsubmit.co/ajax/${contactEmail}`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+        body: JSON.stringify({
+          _subject: `Custom creation idea${field('name') ? ` from ${field('name')}` : ''}`,
+          _template: 'table',
+          _captcha: 'false',
+          ...(contact.includes('@') ? { _replyto: contact } : {}),
+          'What would you like me to create?': field('idea'),
+          'Preferred medium': field('medium'),
+          'Colours, size, occasion, references, and other details': field('details'),
+          Budget: field('budget'),
+          Deadline: field('deadline'),
+          Name: field('name'),
+          'Preferred contact details': contact
+        })
+      })
+      const result = await response.json().catch(() => null)
+      if (!response.ok || String(result?.success) !== 'true') throw new Error('Not sent')
+      form.reset()
+      setFormStatus('sent')
+    } catch {
+      setFormStatus('error')
+    }
   }
 
   return (
@@ -147,9 +170,9 @@ export default function Home(){
         <div className="custom-intro">
           <SectionHeading title="Custom Creations" note="Have an idea in mind? Let's make something." />
           <p>I work across drawing, painting, illustration, and other handmade creations. Tell me what you're imagining, even if it doesn't fit a category.</p>
-          <a className="text-link" href="mailto:vonthegoo@gmail.com">Prefer a direct note? Email me <ArrowUpRight size={15} /></a>
+          <a className="text-link" href={gmailLink} target="_blank" rel="noreferrer">Prefer a direct note? Email me <ArrowUpRight size={15} /></a>
         </div>
-        <form className="order-form" onSubmit={prepareCreationEmail}>
+        <form className="order-form" onSubmit={sendCreationRequest}>
           <label className="form-wide">What would you like me to create?<textarea name="idea" rows={3} placeholder="Tell me about the idea that's been on your mind…" /></label>
           <label>Preferred medium
             <select name="medium" defaultValue="">
@@ -163,8 +186,11 @@ export default function Home(){
           <label>Name<input name="name" autoComplete="name" /></label>
           <label className="form-wide">Preferred contact details<input name="contact" type="text" placeholder="Email, phone, or Instagram" /></label>
           <div className="form-wide">
-            <button className="button button-dark" type="submit">Let's make something <ArrowUpRight size={16} /></button>
-            <p className="form-disclaimer">This opens a prepared email in your email app. Nothing is sent until you choose to send it.</p>
+            <button className="button button-dark" type="submit" disabled={formStatus === 'sending'}>
+              {formStatus === 'sending' ? 'Sending…' : <>Let's make something <ArrowUpRight size={16} /></>}
+            </button>
+            {formStatus === 'sent' && <p className="form-feedback" role="status">Thank you! Your idea is on its way to me. I'll be in touch soon.</p>}
+            {formStatus === 'error' && <p className="form-feedback" role="alert">Sorry, that didn't send. Please try again, or email me at {contactEmail}.</p>}
           </div>
         </form>
         <span className="folio-mark">Page 05 — Custom Creations</span>
@@ -174,7 +200,7 @@ export default function Home(){
         <div className="contact-copy">
           <SectionHeading eyebrow="Say hello" title="Contact" note="For a question, a collaboration, or just to say hi." />
           <div className="contact-links">
-            <a href="mailto:vonthegoo@gmail.com">vonthegoo@gmail.com <ArrowUpRight size={16} aria-hidden="true" /></a>
+            <a href={gmailLink} target="_blank" rel="noreferrer">{contactEmail} <ArrowUpRight size={16} aria-hidden="true" /></a>
             <a href="https://instagram.com/traced.it.bye" target="_blank" rel="noreferrer">@traced.it.bye on Instagram <ArrowUpRight size={16} aria-hidden="true" /></a>
           </div>
         </div>
