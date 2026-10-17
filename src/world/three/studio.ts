@@ -1,10 +1,10 @@
 import {
   AdditiveBlending, BoxGeometry, CapsuleGeometry, CatmullRomCurve3, CircleGeometry, Color, ConeGeometry,
   CylinderGeometry, DoubleSide, Group, LatheGeometry, Line, BufferGeometry, LineBasicMaterial, Material, Mesh, MeshBasicMaterial, MeshStandardMaterial,
-  Object3D, PlaneGeometry, PointLight, Quaternion, SRGBColorSpace, Scene, ShaderMaterial, SphereGeometry, SpotLight, Sprite, SpriteMaterial,
+  Float32BufferAttribute, Object3D, PlaneGeometry, PointLight, Quaternion, SRGBColorSpace, Scene, ShaderMaterial, SphereGeometry, SpotLight, Sprite, SpriteMaterial,
   Texture, TextureLoader, TorusGeometry, TubeGeometry, Vector2, Vector3
 } from 'three'
-import { jettySeat, nearShore, random, type Quality } from './environment'
+import { groundHeight, jettySeat, nearShore, random, type Quality } from './environment'
 import { buildArtist } from './artist'
 import { loadCharacter } from './characterModel'
 import { animated, mergeStill } from './merge'
@@ -20,7 +20,7 @@ import { RoundedBoxGeometry } from 'three/examples/jsm/geometries/RoundedBoxGeom
 
 const rand = random(21)
 
-export type InteractiveKind = 'candle' | 'sketchbook' | 'paper' | 'board' | 'album' | 'duck' | 'cat'
+export type InteractiveKind = 'candle' | 'sketchbook' | 'paper' | 'board' | 'album' | 'duck' | 'cat' | 'dog'
 export type Interactive = { kind: InteractiveKind; label: string; collection?: string; hit: Object3D; highlight: MeshStandardMaterial[] }
 export type StudioContent = {
   sketch: string
@@ -449,6 +449,116 @@ export function buildStudio(scene: Scene, quality: Quality, content: StudioConte
   // ...and up the face of the stud at the back of the side wall.
   vine(new Vector2(-3.14, 3.58), [new Vector3(-3.16, 0.2, 3.6), ...Array.from({ length: 10 }, (_, i) => new Vector3(-3.3, 0.45 + i * 0.25, 3.75 + Math.sin(i * 1.3) * 0.05))])
 
+  // Bamboo behind the pavilion: a few clumps of tall, jointed canes, green going gold, with sprays of
+  // leaves towards their tops, swaying a little. Fewer canes on small or slow devices.
+  const caneColours = ['#8fa548', '#7b9a3e', '#a3a852', '#6c8a37'].map(colour => surface(colour, { roughness: 0.55 }))
+  const nodeMaterial = surface('#5e7031', { roughness: 0.6 })
+  const groves: Array<[number, number]> = [[-3.8, 5.6], [-1.9, 6.6], [0.3, 5.9], [2.4, 6.8], [4.3, 5.7]]
+  groves.forEach(([gx, gz], g) => {
+    const clump = animated(new Group())
+    clump.position.set(gx, groundHeight(gx, gz), gz)
+    const canes = quality.low ? 6 : 10
+    for (let i = 0; i < canes; i++){
+      const angle = rand() * Math.PI * 2, reach = Math.sqrt(rand()) * 0.42
+      const height = 4.4 + rand() * 2.6, radius = 0.032 + rand() * 0.018
+      const lean = new Vector3(Math.cos(angle) * 0.08, 1, Math.sin(angle) * 0.08).normalize()
+      const cane = new Group()
+      const stalk = new Mesh(new CylinderGeometry(radius * 0.8, radius, height, 7, 1), caneColours[(g + i) % caneColours.length])
+      stalk.position.y = height / 2
+      cane.add(stalk)
+      // A ring at every joint.
+      for (let y = 0.3 + rand() * 0.2; y < height - 0.2; y += 0.34 + rand() * 0.08){
+        const node = new Mesh(new CylinderGeometry(radius * 1.12, radius * 1.12, 0.022, 7, 1), nodeMaterial)
+        node.position.y = y
+        cane.add(node)
+      }
+      // Leaves in sprays up the top part.
+      for (let k = 0; k < 3; k++){
+        const spray = foliageClump(0.32, quality.low ? 4 : 6, 0.42, 0.2)
+        spray.position.set((rand() - 0.5) * 0.25, height * (0.62 + k * 0.14), (rand() - 0.5) * 0.25)
+        cane.add(spray)
+      }
+      cane.position.set(Math.cos(angle) * reach, 0, Math.sin(angle) * reach)
+      cane.quaternion.setFromUnitVectors(new Vector3(0, 1, 0), lean)
+      clump.add(cane)
+    }
+    root.add(cast(clump))
+    updates.push(time => {
+      clump.rotation.z = Math.sin(time * 0.55 + g * 1.7) * 0.012
+      clump.rotation.x = Math.sin(time * 0.43 + g) * 0.01
+    })
+  })
+
+  // Morning glories: a creeper rooted just off the front corner of the deck, twining up the corner
+  // post and trailing along the front beam, with blue-violet trumpets (rosy in the throat) opening
+  // outwards on the post and hanging down from the beam, a few buds still furled. They glow a
+  // little as night falls.
+  // A short throat flaring into a wide, nearly flat face.
+  const gloryProfile = [[0.004, 0], [0.006, 0.022], [0.011, 0.04], [0.024, 0.054], [0.046, 0.063], [0.066, 0.067], [0.074, 0.066]]
+    .map(([r, y]) => new Vector2(r, y))
+  const gloryShape = new LatheGeometry(gloryProfile, 30)
+  const throat = new Color('#f0c4f2'), petal = new Color('#7c5cf0'), rim = new Color('#3b3fe0'), rib = new Color('#e6dcff')
+  const gloryPoints = gloryShape.attributes.position
+  const gloryTones: number[] = []
+  for (let i = 0; i < gloryPoints.count; i++){
+    const x = gloryPoints.getX(i), z = gloryPoints.getZ(i)
+    const t = Math.hypot(x, z) / 0.074
+    const tone = t < 0.45 ? throat.clone().lerp(petal, t / 0.45) : petal.clone().lerp(rim, (t - 0.45) / 0.55)
+    // Five pale ribs run out across the face, as on a real morning glory.
+    tone.lerp(rib, Math.pow(Math.abs(Math.cos(Math.atan2(z, x) * 2.5)), 10) * Math.min(1, t * 1.6) * (1 - t) * 0.9)
+    gloryTones.push(tone.r, tone.g, tone.b)
+  }
+  gloryShape.setAttribute('color', new Float32BufferAttribute(gloryTones, 3))
+  const gloryMaterial = surface('#ffffff', { vertexColors: true, side: DoubleSide, roughness: 0.55, emissive: new Color('#3b3ad0'), emissiveIntensity: 0.08 })
+  const budMaterial = surface('#6f5bc8', { roughness: 0.6 })
+  const calyx = surface('#5f7f3a', { roughness: 0.8 })
+  const post = new Vector3(2.8, 0, -1.97)
+  const creeper = new CatmullRomCurve3([
+    new Vector3(2.93, -0.02, -2.1),
+    ...Array.from({ length: 12 }, (_, i) => {
+      const angle = 0.6 + i * 1.35
+      return new Vector3(post.x + Math.cos(angle) * 0.095, 0.12 + i * 0.25, post.z + Math.sin(angle) * 0.095)
+    }),
+    ...Array.from({ length: 5 }, (_, k) => {
+      const x = 2.62 - k * 0.3
+      return new Vector3(x, roofAt(x) - 0.3 - (k % 2) * 0.07, -2.07)
+    })
+  ])
+  root.add(cast(new Mesh(new TubeGeometry(creeper, 90, 0.005, 4), stem)))
+  for (let k = 1; k <= 46; k++){
+    const leaves = foliageClump(0.07, 3, 0.14)
+    leaves.position.copy(creeper.getPointAt(k / 47))
+    root.add(cast(leaves))
+  }
+  // Up the post the trumpets turn out and in towards the deck; along the beam they hang down, their
+  // faces tipped towards whoever stands beneath.
+  const up = new Vector3(0, 1, 0)
+  const onPost = 0.62
+  ;[0.16, 0.22, 0.28, 0.34, 0.4, 0.46, 0.51, 0.56, 0.6, 0.65, 0.69, 0.73, 0.77, 0.81, 0.85, 0.89, 0.93, 0.97].forEach((at, i) => {
+    const from = creeper.getPointAt(at)
+    const facing = at < onPost
+      ? new Vector3(from.x - post.x - 0.7, -0.15 + rand() * 0.35, from.z - post.z + 0.8).normalize()
+      : new Vector3((rand() - 0.5) * 0.7, -0.8, 0.45 + (rand() - 0.5) * 0.4).normalize()
+    const stalkEnd = from.clone().addScaledVector(facing, 0.04)
+    root.add(cast(limb(from, stalkEnd, 0.0025, calyx)))
+    const flower = new Mesh(gloryShape, gloryMaterial)
+    flower.position.copy(stalkEnd)
+    flower.quaternion.setFromUnitVectors(up, facing)
+    flower.scale.setScalar(1.2 + rand() * 0.35)
+    flower.castShadow = true
+    root.add(flower)
+    // A furled bud beside every other flower.
+    if (i % 2){
+      const budAt = creeper.getPointAt(Math.max(0.15, at - 0.025))
+      const budFacing = facing.clone().add(new Vector3(0, 0.6, 0)).normalize()
+      const bud = new Mesh(new ConeGeometry(0.011, 0.07, 6), budMaterial)
+      bud.position.copy(budAt).addScaledVector(budFacing, 0.04)
+      bud.quaternion.setFromUnitVectors(up, budFacing)
+      bud.rotation.y += 0.6
+      root.add(cast(bud))
+    }
+  })
+
   // Her open sketchbook on the floor in front of her, with one of her drawings on the page.
   const book = new Group()
   const coverMaterial = surface('#6b3a2a', { roughness: 0.8 })
@@ -684,21 +794,21 @@ export function buildStudio(scene: Scene, quality: Quality, content: StudioConte
       lanternLights.push(lamplight)
     }
   }
-  // Hanging from the roof on short chains, along the front and the open side of the deck. Every other
-  // one casts light (only the middle one on small or slow devices); they all glow.
+  // Hanging from the roof on short chains, along the front and the open side of the deck. Two cast
+  // light (only the middle one on small or slow devices); they all glow.
   const hooks = [[-2.3, -1.78], [-0.9, -1.78], [0.5, -1.78], [1.9, -1.78], [2.55, -0.9]]
   hooks.forEach(([x, z], i) => {
     const hook = roofAt(x) - 0.16, drop = 0.6
     const chain = new Mesh(new CylinderGeometry(0.004, 0.004, drop, 5), lanternMetal)
     chain.position.set(x, hook - drop / 2, z)
     root.add(chain)
-    lantern(x, hook - drop - 0.37, z, quality.low ? (i === 2 ? 3.5 : 0) : i % 2 === 0 ? 3.5 : 0)
+    lantern(x, hook - drop - 0.37, z, quality.low ? (i === 2 ? 3.5 : 0) : i === 1 || i === 3 ? 3.8 : 0)
   })
   // Lamp posts: one each side of the end of the jetty, either side of her, and one where the jetty
   // meets the trail.
   const jettyHead = nearShore(3.6) + 0.8, planksTop = seat.y
-  // On small or slow devices only one lamp post casts light, so the lighting stays affordable.
-  const posts = [[seat.x - 0.6, seat.z + 0.1, 2.6], [seat.x + 0.6, seat.z + 0.1, quality.low ? 0 : 2.6], [3.02, jettyHead - 0.2, quality.low ? 0 : 2.2]]
+  // The two by her cast light (only one on small or slow devices), so the lighting stays affordable.
+  const posts = [[seat.x - 0.6, seat.z + 0.1, 2.6], [seat.x + 0.6, seat.z + 0.1, quality.low ? 0 : 2.6], [3.02, jettyHead - 0.2, 0]]
   posts.forEach(([x, z, light]) => {
     const pole = new Mesh(new CylinderGeometry(0.022, 0.032, 1.45, 10), lanternMetal)
     pole.position.set(x, planksTop + 0.725, z)
@@ -771,6 +881,7 @@ export function buildStudio(scene: Scene, quality: Quality, content: StudioConte
     lanternGlass.emissive.setRGB(1, 0.6, 0.25).multiplyScalar(lit * 0.45)
     roomLight.intensity = lit * 5
     paperShade.emissive.setRGB(1, 0.7, 0.4).multiplyScalar(lit * 0.9)
+    gloryMaterial.emissiveIntensity = 0.08 + lit * 0.45
   })
 
   mergeStill(root)

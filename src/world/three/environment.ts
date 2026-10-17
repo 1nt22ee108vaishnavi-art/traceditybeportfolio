@@ -154,11 +154,23 @@ export function buildEnvironment(scene: Scene, quality: Quality){
   sky.frustumCulled = false
   scene.add(sky)
 
-  // Land: the near bank and meadow, the shelving lake bed and the far shore.
-  const ground = new PlaneGeometry(1000, 540, 260, 200)
+  // Land: the near bank and meadow, the shelving lake bed and the far shore. Its grid is fine around
+  // the pavilion and the near bank and opens out with distance, where no one sees the detail: about a
+  // third of the triangles of an even grid, with more of them where they show.
+  const ground = new PlaneGeometry(1, 1, 160, 110)
   ground.rotateX(-Math.PI / 2)
-  ground.translate(0, 0, -230)
   const positions = ground.attributes.position as BufferAttribute
+  const groundUv = ground.attributes.uv as BufferAttribute
+  const spread = (t: number) => Math.sign(t) * Math.pow(Math.abs(t), 1.6)
+  for (let i = 0; i < positions.count; i++){
+    // Across: 500m either side of the pavilion. Along: 495m out over the lake, 45m back behind it.
+    const across = positions.getX(i) * 2, along = positions.getZ(i) + 0.5, front = 0.73
+    const x = 500 * spread(across)
+    const z = along > front ? -5 + 45 * spread((along - front) / (1 - front)) : -5 - 495 * spread((front - along) / front)
+    positions.setX(i, x)
+    positions.setZ(i, z)
+    groundUv.setXY(i, (x + 500) / 1000, (z + 500) / 540)
+  }
   const colors = new Float32Array(positions.count * 3)
   const meadow = new Color('#6f9a45'), lush = new Color('#4f7f36'), dry = new Color('#a3a25c'), mud = new Color('#6b5d45'), bed = new Color('#5e5a3e'), far = new Color('#55803f'), dirt = new Color('#8f7556')
   const c = new Color()
@@ -657,8 +669,12 @@ export function buildEnvironment(scene: Scene, quality: Quality){
   updates.push((time, dt) => ducks.update(time, dt))
 
   hidden.push(grass, reeds, dust, fireflies, falling, rain)
+  // The mirror is redrawn every other frame: half the cost, and a reflection a frame behind is
+  // never seen.
   const reflect = lake.onBeforeRender
+  let reflectFrame = 0
   lake.onBeforeRender = function (...args){
+    if (reflectFrame++ % 2) return
     hidden.forEach(object => { object.visible = false })
     reflect.apply(this, args)
     hidden.forEach(object => { object.visible = true })

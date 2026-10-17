@@ -10,7 +10,8 @@ import { UnrealBloomPass } from 'three/examples/jsm/postprocessing/UnrealBloomPa
 import { FXAAShader } from 'three/examples/jsm/shaders/FXAAShader.js'
 import { createCameraRig } from './camera'
 import { buildCat } from './cat'
-import { buildEnvironment, groundHeight } from './environment'
+import { buildDog } from './dog'
+import { buildEnvironment, groundHeight, nearShore } from './environment'
 import { paintedGradeShader, world } from './materials'
 import { buildStudio, seat, type Interactive, type StudioContent } from './studio'
 import { blendAtmosphere, copyAtmosphere, createAtmosphere, cycleAtmosphere, moodAtmosphere, type MoodId } from './timeOfDay'
@@ -66,10 +67,12 @@ export function createWorld(canvas: HTMLCanvasElement, options: WorldOptions){
   const studio = buildStudio(scene, quality, options.content)
   environment.hideFromReflection(studio.root)
   const cat = buildCat(scene, Math.random, seat)
+  const dog = buildDog(scene, Math.random, cat, new Vector2(3.6, nearShore(3.6) + 0.8))
   const interactives: Interactive[] = [
     ...studio.interactives,
     ...environment.ducks.hits.map(hit => ({ kind: 'duck' as const, label: 'A duck', hit, highlight: [] })),
-    { kind: 'cat', label: 'Say hello to the cat', hit: cat.hit, highlight: cat.highlight }
+    { kind: 'cat', label: 'Say hello to the cat', hit: cat.hit, highlight: cat.highlight },
+    { kind: 'dog', label: 'Say hello to the dog', hit: dog.hit, highlight: dog.highlight }
   ]
 
   const composer = new EffectComposer(renderer)
@@ -97,6 +100,9 @@ export function createWorld(canvas: HTMLCanvasElement, options: WorldOptions){
   frame()
   rig.goHome(true)
   window.addEventListener('resize', frame)
+  // Prepare every shader now, while the world loads, so nothing stutters the first time it comes into
+  // view as she looks around.
+  try { renderer.compile(scene, camera) } catch (error) { console.warn('Shaders will be prepared as they are needed:', error) }
 
   // Pointer: find which object, if any, is under it. Only deliberate hit areas count, and anything
   // solid in front of them (her, the desk, a tree) blocks the click.
@@ -170,6 +176,7 @@ export function createWorld(canvas: HTMLCanvasElement, options: WorldOptions){
     }
     if (item.kind === 'duck'){ environment.ducks.disturb(item.hit as Mesh); return }
     if (item.kind === 'cat'){ cat.greet(); return }
+    if (item.kind === 'dog'){ dog.greet(); return }
     setHovered(null)
     options.onSelect({ kind: item.kind, collection: item.collection })
   }
@@ -284,6 +291,7 @@ export function createWorld(canvas: HTMLCanvasElement, options: WorldOptions){
     applyAtmosphere()
     environment.update(elapsed, options.reducedMotion ? 0 : dt, camera.position)
     cat.update(elapsed, options.reducedMotion ? 0 : dt, camera.position)
+    dog.update(elapsed, options.reducedMotion ? 0 : dt)
     studio.update(elapsed, dt)
     composer.render()
   }

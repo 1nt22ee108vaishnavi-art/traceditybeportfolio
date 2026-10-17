@@ -6,6 +6,7 @@ import { contactShadowTexture, fabricTexture } from './textures'
 // A white cat who lives at the studio. It wanders a path from its bed on the deck, down the trail and
 // out along the jetty, stopping to eat, to sit and look about, to curl up asleep in its bed, and most
 // often to settle beside the artist and watch the lake. Clicked, it stops, sits and looks at you.
+// When the dog comes to play while it is sitting or eating, it turns to watch and bats at it.
 
 const WALK = 0.32
 const fur = surface('#f4f1ea', { roughness: 0.95 })
@@ -214,6 +215,10 @@ export function buildCat(scene: Scene, rand: () => number, seat: Vector3){
     return groundHeight(x, z)
   }
 
+  type Doing = 'walk' | 'sit' | 'sleep' | 'eat' | 'play'
+  let current: Doing = 'sleep'
+  // The dog, while it plays nearby.
+  let playmate: Vector3 | null = null
   // It starts curled up asleep in its bed.
   let u = BED, goal = BED, rest = 20, greet = 0, gait = 0, speed = 0
   const pose = { sit: 0, lie: 1, eat: 0 }
@@ -256,8 +261,12 @@ export function buildCat(scene: Scene, rand: () => number, seat: Vector3){
     let wanted = heading
     greet = Math.max(0, greet - dt)
     const resting = greet > 0 || u === goal
-    const doing = greet > 0 ? 'sit' : u !== goal ? 'walk' : goal === BED ? 'sleep' : goal === BOWLS ? 'eat' : 'sit'
+    let doing: Doing = greet > 0 ? 'sit' : u !== goal ? 'walk' : goal === BED ? 'sleep' : goal === BOWLS ? 'eat' : 'sit'
+    if (playmate && greet <= 0 && (doing === 'sit' || doing === 'eat')) doing = 'play'
+    current = doing
     if (greet > 0) wanted = Math.atan2(cameraPosition.x - p.x, cameraPosition.z - p.z)
+    // Playing: it stays put, turning to keep the dog in sight.
+    else if (doing === 'play' && playmate) wanted = Math.atan2(playmate.x - p.x, playmate.z - p.z)
     else if (resting){
       if (doing === 'eat') wanted = Math.atan2(bowlsAt.x - p.x, bowlsAt.y - p.z)
       rest -= dt
@@ -265,7 +274,7 @@ export function buildCat(scene: Scene, rand: () => number, seat: Vector3){
     }
     // Stand up before setting off; settle into the pose on arriving.
     const rate = Math.min(1, dt * (resting ? 1.4 : 3.5))
-    ease('sit', doing === 'sit' ? 1 : 0, rate)
+    ease('sit', doing === 'sit' || doing === 'play' ? 1 : 0, rate)
     ease('lie', doing === 'sleep' ? 1 : 0, Math.min(1, dt * (doing === 'sleep' ? 0.8 : 3)))
     ease('eat', doing === 'eat' ? 1 : 0, rate)
     const settled = Math.max(pose.sit, pose.lie)
@@ -294,7 +303,7 @@ export function buildCat(scene: Scene, rand: () => number, seat: Vector3){
     cat.torso.rotation.set(-0.7 * sit + 0.12 * eat, 0, 0.1 * lie)
     cat.torso.scale.set(1 + breath, 1 + breath, 1)
     cat.fore.forEach((limb, side) => {
-      limb.rotation.x = 0.7 * sit - 1.45 * lie + (side ? swing : -swing)
+      limb.rotation.x = 0.7 * sit - 1.45 * lie + (side ? swing : -swing) - (side && doing === 'play' ? Math.max(0, Math.sin(time * 6)) * 1.1 : 0)
       limb.scale.y = 1 + 0.57 * sit - 0.45 * lie
     })
     cat.hind.forEach((limb, side) => {
@@ -322,6 +331,11 @@ export function buildCat(scene: Scene, rand: () => number, seat: Vector3){
     hit,
     highlight: [fur],
     update,
-    greet(){ greet = 6 }
+    greet(){ greet = 6 },
+    // For the dog: where the cat is, what it is doing, and where it sleeps.
+    position: cat.root.position,
+    bed: bedAt,
+    state: () => current,
+    setPlaymate(at: Vector3 | null){ playmate = at }
   }
 }
