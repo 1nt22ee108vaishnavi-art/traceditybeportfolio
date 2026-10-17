@@ -1,7 +1,7 @@
 # The artist's character model
 
 `artist.glb` is the artist: a realistic young woman, posed sitting on the end of the jetty with her
-legs over the edge and her feet in the water, leaning back on her hands and looking up at the sky.
+legs over the edge and her feet in the water, sitting up comfortably with her palms on the planks beside her, gazing out over the lake.
 Her skeleton is kept, and the model carries a `jetty_pose` marker, so the world
 (`src/world/three/characterModel.ts`) places it at the jetty's edge and animates it: a gentle sway,
 her feet swinging in the water and her gaze wandering over the sky. Without the file, the built-in
