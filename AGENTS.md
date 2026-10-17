@@ -6,10 +6,18 @@ single-page site, styled with Tailwind and plain CSS, deployed on Vercel.
 ## Facts
 
 - **Stack:** Vite 5, React 18, react-router-dom 6, TypeScript (strict), Tailwind 3, lucide-react icons.
-- **No backend.** There is no API, database, auth, payment or environment variable. The commission
-  form in `src/pages/Home.tsx` posts to FormSubmit (formsubmit.co), which emails it to vonthegoo@gmail.com.
-- **Routes** (`src/App.tsx`): `/`, `/work/:slug`, `/daybook`. `vercel.json` rewrites the last two to
-  `/` so deep links work. A new top-level route also needs a rewrite there.
+- **No backend.** There is no API, database, auth, payment or environment variable. The Custom
+  Creations form (`src/components/CustomCreationsForm.tsx`, used on the notebook page and the main menu)
+  posts to FormSubmit (formsubmit.co), which emails it to vonthegoo@gmail.com. Contact details live in
+  `src/data/portfolio.ts`.
+- **Routes** (`src/App.tsx`): `/` is the game-style main menu (`src/pages/MainMenu.tsx`), with
+  `/custom-creations`; `/world` is the 3D world (`src/world/`, three.js, loaded only there);
+  `/notebook` is the original notebook home page (old `/#section` links redirect to it); `/work/:slug`
+  and `/daybook`. `vercel.json` rewrites every route but `/` to `/` so deep links work. A new
+  top-level route also needs a rewrite there.
+- **3D world:** scene code in `src/world/three/`; the artist's model is
+  `public/assets/world/models/artist.glb` (see the README there); the menu's background stills are in
+  `public/assets/menu/` (captured from the world at night).
 - **Artwork data:** `src/data/portfolio.ts` builds every image list from two files:
   `src/data/artwork-mapping.json` (an unedited organiser export, v2) and
   `src/data/extra-artwork.json` (artwork in the folder that the mapping misses, sorted by medium;

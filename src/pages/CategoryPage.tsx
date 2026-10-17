@@ -34,7 +34,7 @@ export default function CategoryPage(){
         <div className="category-not-found">
           <span className="eyebrow">A page misplaced</span>
           <h1>This collection isn't here.</h1>
-          <Link className="text-link" to="/#work"><ArrowLeft size={15} /> Return to Work</Link>
+          <Link className="text-link" to="/notebook#work"><ArrowLeft size={15} /> Return to Work</Link>
         </div>
       </section>
     )
@@ -42,7 +42,7 @@ export default function CategoryPage(){
 
   return (
     <section className={`category-section page-section category-section-${category.id}`} aria-label={`${category.color} artwork`}>
-      <Link className="text-link category-back" to="/#work"><ArrowLeft size={15} /> Back to Work</Link>
+      <Link className="text-link category-back" to="/notebook#work"><ArrowLeft size={15} /> Back to Work</Link>
       <div className="category-artworks">
         {category.artworks.map((image, index) => (
           <ArtworkImage key={image.src} image={image} index={index} />

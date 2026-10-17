@@ -60,18 +60,18 @@ export default function Header(){
             {navigation.map(item => (
               <a
                 key={item.id}
-                href={item.id === 'daybook' ? '/daybook' : location.pathname === '/' ? `#${item.id}` : `/#${item.id}`}
+                href={item.id === 'daybook' ? '/daybook' : location.pathname === '/notebook' ? `#${item.id}` : `/notebook#${item.id}`}
                 aria-current={(item.id === 'daybook' && location.pathname === '/daybook') || activeSection === item.id ? 'location' : undefined}
                 onClick={event => {
                   if (item.id === 'daybook') {
                     event.preventDefault()
                     closeMenu()
                     navigate('/daybook')
-                  } else if (location.pathname === '/') navigateToSection(event, item.id)
+                  } else if (location.pathname === '/notebook') navigateToSection(event, item.id)
                   else {
                     event.preventDefault()
                     closeMenu()
-                    navigate(`/#${item.id}`)
+                    navigate(`/notebook#${item.id}`)
                   }
                 }}
               >

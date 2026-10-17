@@ -1,17 +1,20 @@
-import { useLayoutEffect } from 'react'
-import { Route, Routes, useLocation } from 'react-router-dom'
+import { Suspense, lazy, useLayoutEffect } from 'react'
+import { Navigate, Route, Routes, useLocation } from 'react-router-dom'
 import Header from './components/Header'
 import Footer from './components/Footer'
 import ArtworkPreview from './components/ArtworkPreview'
 import Home from './pages/Home'
 import CategoryPage from './pages/CategoryPage'
 import DaybookPage from './pages/DaybookPage'
+import MainMenu from './pages/MainMenu'
+// The 3D world and its engine load only when someone visits /world.
+const WorldPage = lazy(() => import('./world/WorldPage'))
 
 function ScrollToSection(){
   const { pathname, hash } = useLocation()
 
   useLayoutEffect(() => {
-    if (pathname !== '/' || !hash) {
+    if (pathname !== '/notebook' || !hash) {
       window.scrollTo(0, 0)
       return
     }
@@ -22,13 +25,21 @@ function ScrollToSection(){
 }
 
 export default function App(){
+  const { pathname, hash } = useLocation()
+  // The world scene is its own full-screen experience, without the site header or footer.
+  if (pathname === '/world') return <Suspense fallback={<div className="world" />}><WorldPage /></Suspense>
+  // Links to sections of the notebook page from when it was the home page (/#about and so on).
+  if (pathname === '/' && hash) return <Navigate to={`/notebook${hash}`} replace />
+  // The main menu is the first screen; Custom Creations opens from it.
+  if (pathname === '/' || pathname === '/custom-creations') return <MainMenu />
+
   return (
     <div className="notebook-app">
       <ScrollToSection />
       <Header />
       <main>
         <Routes>
-          <Route path="/" element={<Home />} />
+          <Route path="/notebook" element={<Home />} />
           <Route path="/work/:slug" element={<CategoryPage />} />
           <Route path="/daybook" element={<DaybookPage />} />
           <Route path="*" element={<CategoryPage />} />

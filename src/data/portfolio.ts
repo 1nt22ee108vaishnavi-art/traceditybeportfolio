@@ -124,6 +124,36 @@ export const daybookEntries: DaybookEntry[] = [
   ...extraImages(extras.daybook, index => `Daybook photograph ${mappedDaybook.length + index + 1}`)
 ]
 
+// The medium each collection holds, by slug (shown in the world's sketchbook).
+export const collectionMediums: Record<string, string> = {
+  acrylic: 'Acrylic',
+  charcoal: 'Charcoal',
+  'ms-paint': 'MS Paint',
+  watercolor: 'Watercolour',
+  'ink-and-watercolor': 'Detailed eyes',
+  'sketches-and-doodles': 'Pencil sketches'
+}
+
+// Where her work lives in the world (/world): the sketch on the open sketchbook page, the collection
+// on each loose paper on the desk, and the watercolours pinned to the inspiration board. The
+// daybook album on the shelf holds the Daybook photographs.
+export const worldPlaces = {
+  sketchbookPage: 'sketches-and-doodles',
+  papers: ['acrylic', 'charcoal', 'ms-paint', 'ink-and-watercolor'],
+  board: 'watercolor'
+}
+
+// How to reach me: shown in Contact (on the notebook page and the main menu) and used by the Custom
+// Creations form, which sends enquiries to this inbox.
+export const contactEmail = 'vonthegoo@gmail.com'
+// Email links open a new message in Gmail.
+export const gmailLink = `https://mail.google.com/mail/?view=cm&fs=1&to=${contactEmail}`
+export const instagramHandle = 'traced.it.bye'
+export const instagramLink = `https://instagram.com/${instagramHandle}`
+
+// The introduction to Custom Creations, on the notebook page and the main menu.
+export const customCreationsIntro = 'Have an idea in mind? Tell me about it. I’ll review your request and get back to you about what’s possible, the pricing, and the timeline before we confirm anything.'
+
 // Choices for "Preferred medium" in the Custom Creations form.
 export const commissionMediums = [
   'Drawing (pencil or graphite)',
